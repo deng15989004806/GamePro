@@ -48,7 +48,13 @@ namespace GamePro.BaseFunction
                 return GetAppConfig("appsecret");
             }
         }
-
+        public static string partnerkey
+        {
+            get
+            {
+                return GetAppConfig("PARTNER_KEY");
+            }
+        }
         /// <summary>
         /// access_token的有效期
         /// </summary>

@@ -109,6 +109,7 @@ namespace GamePro.ViewModel
                     requestDocXml.LoadXml(requestStr);
                     XmlElement rootElement = requestDocXml.DocumentElement;
                     ToUserName = rootElement.SelectSingleNode("ToUserName").InnerText;
+                  
                     try
                     {
                         Encrypt = rootElement.SelectSingleNode("Encrypt").InnerText;
@@ -119,6 +120,7 @@ namespace GamePro.ViewModel
                     try
                     {
                         FromUserName = rootElement.SelectSingleNode("FromUserName").InnerText;
+                       
                     }
                     catch (Exception)
                     {
@@ -246,6 +248,7 @@ namespace GamePro.ViewModel
         {
             HttpContext context = HttpContext.Current;
             context.Response.Write(xmlMsg);
+            HttpContext.Current.Response.End();
         }
 
         private static int GetCreateTime()
@@ -256,7 +259,7 @@ namespace GamePro.ViewModel
 
         public static void sendMessage(string toUserName, string content)
         {
-            string FromUserName = "deyuyanxue";
+            string FromUserName = "gh_47409ec83afa";
             string xmlMsg = "<xml>" +
             "<ToUserName><![CDATA[" + toUserName + "]]></ToUserName>" +
             "<FromUserName><![CDATA[" + FromUserName + "]]></FromUserName>" +

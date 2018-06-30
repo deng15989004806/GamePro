@@ -1,0 +1,287 @@
+﻿
+<!doctype html>
+<html class="no-js">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>微风竞技</title>
+    <!-- Set render engine for 360 browser -->
+    <meta name="renderer" content="webkit">
+    <!-- No Baidu Siteapp-->
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileColor" content="#0e90d2">
+    <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
+    <!--
+    <link rel="canonical" href="http://www.example.com/">
+    -->
+   
+    <link href="~/Content/amazeui.min.css" rel="stylesheet" />
+   
+    <link href="~/Content/app.css" rel="stylesheet" />
+
+    <link href="~/Content/jquery-labelauty.css" rel="stylesheet" />
+
+    <!--必要样式-->
+    <style>
+        .chongzhi {
+            padding: 30px 10px;
+            height: auto;
+            width: 100%;
+        }
+
+        .item {
+            float: left;
+            width: 33.3%;
+            height: 60px;
+            padding: 0 10px;
+            margin-bottom: 20px;
+        }
+
+        .content {
+            width: 100%;
+            height: 60px;
+            color: #FEBF00;
+            border: 1px solid #FEBF00;
+            text-align: center;
+            font-family: SimSun;
+        }
+
+        .money {
+            font-size: 24px;
+            display: block;
+            line-height: 24px;
+            margin-top: 8px;
+        }
+
+        .jifen {
+            font-size: 12px;
+            line-height: 12px;
+        }
+
+        .current {
+            color: #FFF;
+            background: #FEBF00;
+        }
+
+        #num {
+            font-family: SimSun;
+            font-size: 36px;
+            font-weight: bold;
+            width: 70%;
+            border: none;
+            border-bottom: 1px solid #929292;
+            margin-bottom: 20px;
+            padding-left: 10px;
+        }
+
+        .comfirm-btn {
+            display: inline-block;
+            width: 50%;
+            text-align: center;
+            line-height: 45px;
+            background: #333;
+            color: #F6DB7F;
+            font-size: 24px;
+            border-radius: 3px;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <header data-am-widget="header" class="am-header am-header-default">
+        <div class="am-header-left am-header-nav">
+            <a onclick="back()" class="">
+              
+                <img src="~/Img/left.png" alt="" style="margin: 5px"/>
+            </a>
+        </div>
+        <script>
+    function back() {
+        if (/(iPhone|iPad|iPod)/i.test(navigator.userAgent)) {
+            window.location.href = window.document.referrer;
+        } else { window.history.go("-1"); }
+    }
+        </script>
+
+        <h1 class="am-header-title">
+            <a href="#title-link" class="">
+                充值
+            </a>
+        </h1>
+    </header>
+
+
+    <div class="chongzhi ">
+        <!--记录选择了多少钱-->
+        <input type="hidden" id="cz_money" value="88">
+        <input type="hidden" id="num" value="88">
+        <!--<div class="item" data-value="68">-->
+        <!--<div class="content current">-->
+        <!--<span class="money">68￥</span>-->
+        <!--<span class="jifen">680钻石</span>-->
+        <!--</div>-->
+        <!--</div>-->
+        <div class="item" data-value="0.1">
+            <div class="content current">
+                <span class="money">0.1￥</span>
+                <span class="jifen">880钻石</span>
+            </div>
+        </div>
+        <div class="item" data-value="188">
+            <div class="content">
+                <span class="money">188￥</span>
+                <span class="jifen">1880钻石</span>
+            </div>
+        </div>
+        <div class="item" data-value="288">
+            <div class="content">
+                <span class="money">288￥</span>
+                <span class="jifen">2880钻石</span>
+            </div>
+        </div>
+        <div class="item" data-value="588">
+            <div class="content">
+                <span class="money">588￥</span>
+                <span class="jifen">5880钻石</span>
+            </div>
+        </div>
+        <div class="item" data-value="888">
+            <div class="content">
+                <span class="money">888￥</span>
+                <span class="jifen">8880钻石</span>
+            </div>
+        </div>
+        <div class="item" data-value="1888">
+            <div class="content">
+                <span class="money">1888￥</span>
+                <span class="jifen">18880钻石</span>
+            </div>
+        </div>
+        <div class="item" data-value="2888">
+            <div class="content">
+                <span class="money">2888￥</span>
+                <span class="jifen">28880钻石</span>
+            </div>
+        </div>
+        <div class="item" data-value="3888">
+            <div class="content">
+                <span class="money">3888￥</span>
+                <span class="jifen">38880钻石</span>
+            </div>
+        </div>
+        <div class="item" data-value="5888">
+            <div class="content">
+                <span class="money">5888￥</span>
+                <span class="jifen">58880钻石</span>
+            </div>
+        </div>
+    </div>
+    <div class="am-g">
+        <div class="am-u-sm-12">
+            <span style="color: #F00;font-size: 12px;margin-left: 8px;display: block;margin-top: -10px">*注：1￥=10钻石</span>
+        </div>
+    </div>
+
+    <!--<div class="am-g">-->
+    <!--<div class="am-u-sm-12">-->
+    <!--<span style="color:#020202;font-size: 15px;margin-left: 8px;line-height: 30px;margin-bottom: 10px;display: block">自定义充值：</span>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div class="am-g">-->
+    <!--<div class="am-u-sm-12" style="padding-left: 38px">-->
+    <!--<span style="color:#020202;font-size: 30px;">￥</span><input type="text" id="num" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"-->
+    <!--onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'0')}else{this.value=this.value.replace(/\D/g,'')}">-->
+    <!--</div>-->
+    <!--</div>-->
+
+    <div class="am-g">
+        <div class="am-u-sm-12 am-text-center">
+            <a href="#"><span class="comfirm-btn">确定充值</span></a>
+        </div>
+    </div>
+
+
+    <!--[if (gte IE 9)|!(IE)]><!-->
+    <script src="~/Content/jquery.min.js"></script>
+    <script src="~/Content/angular.min.js"></script>
+    <script src="~/Content/amazeui.min.js"></script>
+    <script src="~/Content/layer.js"></script>
+   
+    <script type="text/javascript">
+    $(function(){
+        $('.item').click(function(){
+//            console.log($(this).attr('data-value'));
+            $(this).siblings().children('.content').removeClass('current');
+            $(this).children('.content').addClass('current');
+            var m = $(this).children('.content').children('.money').html();
+            $('#cz_money').val(m.substring(0,m.length-1));
+            $('#num').val($(this).attr('data-value'));
+        });
+        $('.comfirm-btn').click(function(){
+            if ($('#num').val()!=''){
+                $('#cz_money').val($('#num').val());
+            }
+
+        })
+    });
+
+    $(function(){
+        $('#num').focus(function(){
+            $('.item .content').removeClass('current');
+        });
+        $('.comfirm-btn').click(function(){
+            var val = $('#cz_money').val();
+            if (val!=''||val!=null){
+                if(val <= 588){
+                    window.location.href='/home/jspay?money='+val;
+                }else {
+                    layer.msg('sorry! ！平台支付系统处于每周常规维护升级中，如需充值请联系财务部客服，如有不便尽请见谅。', {
+                        time: 3000
+                    });
+                }
+//                layer.msg('是否确定充值'+val*10+'个钻石?',{
+//                    time: 20000, //20s后自动关闭
+//                    btn: ['确定', '取消']
+//                    ,yes:function (){
+//                        addOrder(val);
+//                    }
+//                });
+            }
+        })
+    });
+
+    function addOrder(money){
+        $.ajax({
+            type: "POST",
+            url: "/index.php/Home/Recharge/addRechargeLog",
+            data: {
+                money: money
+            },
+            dataType: "json",
+            success: function (data) {
+                layer.msg(data.message);
+                console.info(data);
+                if(data.success){
+                    window.location.href = data.data.url;
+                }
+            },
+            error: function (data) {
+                console.info(data);
+            }
+        });
+    }
+    </script>
+</body>
+</html>

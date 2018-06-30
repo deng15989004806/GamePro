@@ -14,12 +14,33 @@ using GamePro.ViewModel;
 using GamePro.BaseFunction;
 using System.Net;
 using System.IO;
+using GamePro.Common;
+
 
 namespace GamePro.Controllers
 {
     public class HomeController : Controller
     {
-        
+        private string PostInput()
+        {
+            try
+            {
+                System.IO.Stream s = Request.InputStream;
+                int count = 0;
+                byte[] buffer = new byte[1024];
+                StringBuilder builder = new StringBuilder();
+                while ((count = s.Read(buffer, 0, 1024)) > 0)
+                {
+                    builder.Append(Encoding.UTF8.GetString(buffer, 0, count));
+                }
+                s.Flush();
+                s.Close();
+                s.Dispose();
+                return builder.ToString();
+            }
+            catch (Exception ex)
+            { throw ex; }
+        }
 
         // GET: Home
         GameWZEntities db = new GameWZEntities();
@@ -40,10 +61,30 @@ namespace GamePro.Controllers
             //    Response.Write("Invalid request");
             //    Response.End();
             //}
-
-            if (Request["code"] == null)
+            if (Request.RequestType.ToUpper() == "POST")
             {
-                 string url = weixinService.OAuth2("http://www.abc.karslo.com/Home/Index", 0);
+                string message = PostInput();
+                wxModelMessage mm = new wxModelMessage();
+                mm.ParseXML(message);
+                LogService.Write("发送方：" + mm.FromUserName);
+                LogService.Write("接收方：" + mm.ToUserName);
+                LogService.Write("事件值："+mm.Event);
+                if (mm.Event == "subscribe")
+                {
+                    LogService.Write("发送消息：" +" 你好，感谢关注微来时空");
+                    wxModelMessage.sendMessage(mm.FromUserName,"你好，感谢关注微来时空");
+                }
+                if (mm.MsgType == "text")
+                {
+                    LogService.Write("text消息");
+                    wxModelMessage.sendMessage(mm.FromUserName, "收到"+mm.Content);
+                }
+
+
+            }
+                if (Request["code"] == null)
+            {
+                 string url = weixinService.OAuth2("http://www.7893927.cn/Home/Index", 0);
               
                 System.Web.HttpContext.Current.Response.Redirect(url);
             }
@@ -85,38 +126,45 @@ namespace GamePro.Controllers
             Response.Write(wxMenuService.Create(Server.MapPath("~/menu.txt")));
             return View();
         }
-        public ActionResult JSPay()
+        public ActionResult JSPay(decimal money)
         {
+
+            
             string strBillNo = wxPayService.getTimestamp(); // 订单号
+            
             string strWeixin_OpenID = "";  // 当前用户的openid
             string strCode = Request.QueryString["code"] == null ? "" : Request.QueryString["code"]; // 接收微信认证服务器发送来的code
 
-         
-
+            
+          
             if (string.IsNullOrEmpty(strCode)) //如果接收到code，则说明是OAuth2服务器回调
             {
                 //进行OAuth2认证，获取code
                 string _OAuth_Url = wxPayService.OAuth2_GetUrl_Pay(Request.Url.ToString());
 
+             
+               Response.Redirect(_OAuth_Url);
               
-                Response.Redirect(_OAuth_Url);
                 return Content("");
             }
             else
             {
+               
+                
                 //根据返回的code，获得
                 wxPayReturnValue retValue = wxPayService.OAuth2_Access_Token(strCode);
+             
 
                 if (retValue.HasError)
                 {
                     Response.Write("获取code失败：" + retValue.Message);
                     return Content("");
                 }
-                
 
+               
                 strWeixin_OpenID = retValue.GetStringValue("Weixin_OpenID");
                 string strWeixin_Token = retValue.GetStringValue("Weixin_Token");
-              
+               
                 if (string.IsNullOrEmpty(strWeixin_OpenID))
                 {
                     Response.Write("openid出错");
@@ -126,7 +174,7 @@ namespace GamePro.Controllers
             if (string.IsNullOrEmpty(strWeixin_OpenID))
                 return Content("");
 
-            wxpayPackage pp = wxPayService.MakePayPackage(strWeixin_OpenID, strBillNo, 0.01M, "测试");
+            wxpayPackage pp = wxPayService.MakePayPackage(strWeixin_OpenID, strBillNo, money, "微来时空");
             //  LogService.Write("_Pay_json1:" + _Pay_json);
             ViewBag.appid = pp.appId;
             ViewBag.nonceStr = pp.nonceStr;
@@ -134,6 +182,8 @@ namespace GamePro.Controllers
             ViewBag.paySign = pp.paySign;
             ViewBag.signType = pp.signType;
             ViewBag.timeStamp = pp.timeStamp;
+            ViewBag.money = money;
+
 
             return View();
         }
@@ -311,6 +361,16 @@ namespace GamePro.Controllers
             {
                 return View();
             }
+        }
+
+        public ActionResult Notify()
+        {
+            return View();
+        }
+
+        public ActionResult Addmoney()
+        {
+            return View();
         }
 
 

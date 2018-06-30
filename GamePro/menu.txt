@@ -1,12 +1,12 @@
 {
 "button":
   [
-    {"type":"view","name":"选手登录","url":"http://www.abc.karslo.com/Home/Index"},
-    {"type":"view","name":"参赛报名","url":"http://www.abc.karslo.com/Home/regist"},
+    {"type":"view","name":"选手登录","url":"http://www.7893927.cn/Home/Index"},
+    {"type":"view","name":"参赛报名","url":"http://www.7893927.cn/Home/regist"},
     {"name":"关于平台","sub_button":
                                   [
-                                     {"type":"view","name":"规则介绍","url":"http://www.ppzzii.com/Home/Test"},
-                                     {"type":"view","name":"平台充值","url":"http://www.youku.com"}
+                                     {"type":"view","name":"规则介绍","url":"http://www.7893927.cn/Test"},
+                                     {"type":"view","name":"平台充值","url":"http://www.7893927.cn/home/addmoney"}
                                   ]
      }
   ]

@@ -13,6 +13,7 @@ using GamePro.ViewModel;
 using wxBase.Model.Pay;
 using GamePro.App_Start;
 using GamePro.BaseFunction;
+using GamePro.Common;
 namespace wxBase
 {
     public static class wxPayService
@@ -25,10 +26,10 @@ namespace wxBase
         public  static readonly string OAUTH2 = "https://open.weixin.qq.com/connect/oauth2/authorize";
         public  static readonly string OAUTH2_ACCESS_TOKEN = "https://api.weixin.qq.com/sns/oauth2/access_token";
         //支付密钥Key(原来的Paysignkey )
-        public const string PAY_SIGNKEY = "dfasfffffffffffa";//paysignkey(非appkey) 
+        public static  string PAY_SIGNKEY =weixinService.partnerkey;//paysignkey(非appkey) 
 
         //服务器异步通知页面路径
-        public static readonly string TENPAY_NOTIFY = "http://www.youxuewang.com.cn/weixin/WXPayNotify_URL";
+        public static readonly string TENPAY_NOTIFY = "http://www.7893927.cn/Home/Notify";
         //public static readonly string NOTIFY_URL_Card_Store = "/wx/WXPayNotify_URL.aspx";// ConfigurationManager.AppSettings["WXPayNotify_URL_CardStore"].ToString();
         //public static readonly string NOTIFY_URL_Card_User = "/wx/WXPayNotify_URL.aspx"; //ConfigurationManager.AppSettings["WXPayNotify_URL_CardUser"].ToString();
         //public static readonly string NOTIFY_URL_HB_Store = "/wx/WXPayNotify_URL.aspx";// ConfigurationManager.AppSettings["WXPayNotify_URL_CardStore"].ToString();
@@ -181,6 +182,8 @@ namespace wxBase
                 UserAccessToken uat = JSONHelper.JSONToObject<UserAccessToken>(retValue.Message);
                 retValue.PutValue("Weixin_OpenID", uat.openid);
                 retValue.PutValue("Weixin_Token", uat.access_token);
+
+                LogService.Write("openID"+uat.openid+"---"+"Weixin_token"+uat.access_token);
                 //retValue.PutValue("Weixin_ExpiresIn", intWeixin_ExpiresIn);
                 //retValue.PutValue("Weixin_ExpiresDate", DateTime.Now.AddSeconds(intWeixin_ExpiresIn));
                 //retValue.PutValue("refresh_token", StringUtils.GetJsonValue(retValue.Message, "refresh_token").ToString());

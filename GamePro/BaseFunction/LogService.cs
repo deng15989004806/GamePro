@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace GamePro.Common
 {
@@ -24,7 +25,7 @@ namespace GamePro.Common
         public static void Write(string text)
         {
             #region 如果日志文件夹不存在，则创建之
-            string dir = AppDomain.CurrentDomain.BaseDirectory + "//" + logDir;
+            string dir =AppDomain.CurrentDomain.BaseDirectory+"//"  + logDir;
             if (!Directory.Exists(dir))
                 Directory.CreateDirectory(dir);
             #endregion

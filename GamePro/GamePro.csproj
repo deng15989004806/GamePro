@@ -369,9 +369,7 @@
     <Content Include="Views\Home\pageindex.cshtml" />
     <Content Include="Views\Home\regist.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
@@ -379,6 +377,9 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\apiclient_cert.p12" />
+    <Content Include="App_Data\apiclient_cert.pem" />
+    <Content Include="App_Data\apiclient_key.pem" />
     <None Include="Properties\PublishProfiles\FTPWEB.pubxml" />
     <None Include="Properties\PublishProfiles\FTPWEB1.pubxml" />
     <None Include="Properties\PublishProfiles\GamePro.pubxml" />
@@ -390,6 +391,9 @@
     <Content Include="Views\Home\test1.cshtml" />
     <Content Include="Views\Room\addUI.cshtml" />
     <Content Include="Views\Room\Room.cshtml" />
+    <Content Include="Views\Home\Notify.cshtml" />
+    <None Include="Properties\PublishProfiles\local.pubxml" />
+    <Content Include="Views\Home\Addmoney.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

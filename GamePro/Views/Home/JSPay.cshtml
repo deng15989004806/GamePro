@@ -2,9 +2,26 @@
 @{
     ViewBag.Title = "JSAPI支付";
 }
-<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
-<link href="~/Content/style.css" rel="stylesheet" />
-<script language="javascript" type="text/javascript">
+
+
+
+
+
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>pageindex</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+    <link href="~/Content/style.css" rel="stylesheet" />
+
+    <script src="~/Content/jquery.js"></script>
+    <script src="~/Content/jquery.min.js"></script>
+    <script language="javascript" type="text/javascript">
     // 当微信内置浏览器完成内部初始化后会触发WeixinJSBridgeReady事件。
     document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
         // alert('ok');
@@ -27,12 +44,13 @@
         });
 
     }, false)
-</script>
+    </script>
+</head>
+<body>
+    <br /><br />
+    <h2>微来时空支付</h2>
 
-<br /><br />
-<h2>JSAPI支付</h2>
+    <button class="btn btn_primary" id="btn_JsApiPay" style="margin-top:50%;margin-bottom:50%;">确认值 @ViewBag.money 元</button>
 
-<button class="btn btn_primary" id="btn_JsApiPay" style="margin-top:50%;margin-bottom:50%;">测试JSAPI支付</button>
-
-
-
+</body>
+</html>
