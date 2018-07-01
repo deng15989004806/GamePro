@@ -15,7 +15,7 @@ using GamePro.BaseFunction;
 using System.Net;
 using System.IO;
 using GamePro.Common;
-
+using System.Xml;
 
 namespace GamePro.Controllers
 {
@@ -365,6 +365,56 @@ namespace GamePro.Controllers
 
         public ActionResult Notify()
         {
+            string wxNotifyXml = "";
+            byte[] bytes = Request.BinaryRead(Request.ContentLength);
+            wxNotifyXml = System.Text.Encoding.UTF8.GetString(bytes);
+
+            if (wxNotifyXml.Length == 0)
+            {
+                return View();
+            }
+            XmlDocument xmldoc = new XmlDocument();
+
+            xmldoc.LoadXml(wxNotifyXml);
+            string ResultCode = xmldoc.SelectSingleNode("/xml/result_code").InnerText;
+            string ReturnCode = xmldoc.SelectSingleNode("/xml/return_code").InnerText;
+            if (ReturnCode == "SUCCESS" && ResultCode == "SUCCESS")
+            {
+                string total_fee = xmldoc.SelectSingleNode("/xml/total_fee").InnerText;
+                int? userID = int.Parse(Session["USERID"].ToString());
+                string OpenID = Session["OpenID"].ToString();
+
+                Recharge re = new Recharge();
+                re.IDOfUSER = userID;
+                re.OPenID = OpenID;
+                re.Inmoney = decimal.Parse(total_fee);
+
+                db.Recharge.Add(re);
+                db.SaveChanges();
+
+                User u = db.User.FirstOrDefault(m=>m.ID==userID);
+                if (total_fee == "0.1")
+                {
+                    u.NumberOfDiamonds += 880;
+                }
+                else if (total_fee=="188")
+                {
+                    u.NumberOfDiamonds += 1880;
+                }
+                else if (total_fee == "288")
+                {
+                    u.NumberOfDiamonds += 2880;
+                }
+                else if (total_fee == "588")
+                {
+                    u.NumberOfDiamonds += 5880;
+                }
+
+                db.Entry<User>(u).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+
+            }
+           
             return View();
         }
 
