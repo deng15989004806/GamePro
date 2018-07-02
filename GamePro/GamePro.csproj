@@ -199,7 +199,9 @@
     <Compile Include="App_Start\PayWeiXin.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\StreamReaderUtils.cs" />
+    <Compile Include="App_Start\UploadMediaResult.cs" />
     <Compile Include="App_Start\wxCallbackip.cs" />
+    <Compile Include="App_Start\wxMediaService.cs" />
     <Compile Include="App_Start\wxMenuService.cs" />
     <Compile Include="App_Start\wxpayPackage.cs" />
     <Compile Include="App_Start\wxPayReturnValue.cs" />
@@ -285,6 +287,7 @@
     <Content Include="Img\132_005.jpg" />
     <Content Include="Img\5ab61a1239082.jpg" />
     <Content Include="Img\5ab61dba59b30.jpg" />
+    <Content Include="Img\ewm.png" />
     <Content Include="Img\asd23.jpg" />
     <Content Include="Img\award.png" />
     <Content Include="Img\boy.png" />

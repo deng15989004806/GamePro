@@ -16,6 +16,7 @@ using System.Net;
 using System.IO;
 using GamePro.Common;
 using System.Xml;
+using wxBase.Model.Media;
 
 namespace GamePro.Controllers
 {
@@ -71,13 +72,16 @@ namespace GamePro.Controllers
                 LogService.Write("事件值："+mm.Event);
                 if (mm.Event == "subscribe")
                 {
-                    LogService.Write("发送消息：" +" 你好，感谢关注微来时空");
-                    wxModelMessage.sendMessage(mm.FromUserName,"你好，感谢关注微来时空");
+                    LogService.Write("关注ID" +mm.FromUserName);
+                    wxModelMessage.sendMessage(mm.FromUserName, "因公众号功能还在完善中。。。。需要咨询礼包和各类游戏活动的朋友请加微信号：He0705h  回复消息有惊喜");
+                   
                 }
                 if (mm.MsgType == "text")
                 {
-                    LogService.Write("text消息");
-                    wxModelMessage.sendMessage(mm.FromUserName, "收到"+mm.Content);
+                    LogService.Write("收到消息"+mm.Content);
+                    //wxModelMessage.sendMessage(mm.FromUserName, "收到"+mm.Content);
+                    wxModelMessage.sendImageMessage(mm.FromUserName, "pt3-_5yeWi40YpNGW3eLJUKk5hcTf2GNHW9CU3TPSVWx6DplgMOki45UtH7xocFQ");
+                    LogService.Write("发送二维码成功");
                 }
 
 
@@ -123,7 +127,13 @@ namespace GamePro.Controllers
         }
         public ActionResult CreateMenu()
         {
-            Response.Write(wxMenuService.Create(Server.MapPath("~/menu.txt")));
+            // Response.Write(wxMenuService.Create(Server.MapPath("~/menu.txt")));
+            //string url = string.Format("http://file.api.weixin.qq.com/cgi-bin/media/upload?access_token={0}&type={1}", weixinService.Access_token, "image");
+            //string json = wxMediaService.HttpUploadFile(url, @"C:\Users\Administrator\source\repos\GamePro\GamePro\Img\ewm.png");
+
+            //UploadMediaResult um = JSONHelper.JSONToObject<UploadMediaResult>(json);
+            //Response.Write("上传成功。媒体id:" + um.media_id + "");
+           
             return View();
         }
         public ActionResult JSPay(decimal money)
@@ -393,7 +403,7 @@ namespace GamePro.Controllers
                 db.SaveChanges();
 
                 User u = db.User.FirstOrDefault(m=>m.ID==userID);
-                if (total_fee == "0.1")
+                if (total_fee == "88")
                 {
                     u.NumberOfDiamonds += 880;
                 }

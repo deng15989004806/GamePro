@@ -249,6 +249,7 @@ namespace GamePro.ViewModel
             HttpContext context = HttpContext.Current;
             context.Response.Write(xmlMsg);
             HttpContext.Current.Response.End();
+            
         }
 
         private static int GetCreateTime()
@@ -274,7 +275,7 @@ namespace GamePro.ViewModel
 
         public static void sendImageMessage(string toUserName, string media_id)
         {
-            string FromUserName = "deyuyanxue";
+            string FromUserName = "gh_47409ec83afa";
             string xmlMsg = "<xml>" +
             "<ToUserName><![CDATA[" + toUserName + "]]></ToUserName>" +
             "<FromUserName><![CDATA[" + FromUserName + "]]></FromUserName>" +
