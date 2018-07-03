@@ -112,7 +112,7 @@ namespace GamePro.Controllers
                 else
                     return RedirectToAction("Login", "Home");
             }
-            else
+            //else
                 weixinService.AutoLogin(result.openid, Convert.ToInt32(Session["id"])); //当openid或用户ID有一个不为空时自动登录
 
             //return Content("用户" + Session["nickname"] + "登陆成功" + Session["OpenID"]);
@@ -433,6 +433,9 @@ namespace GamePro.Controllers
             return View();
         }
 
-
+        public ActionResult GameShow()
+        {
+            return View();
+        }
     }
 }
