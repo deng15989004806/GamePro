@@ -1,6 +1,7 @@
 ﻿
 @{
     Layout = null;
+    ViewBag.RingID = 1000;
 }
 
 <html class="js cssanimations">
@@ -274,98 +275,7 @@
             </a>
         </h1>
     </header>
-    <div class="am-g" style="background: #333;max-width: 640px;position: relative">
-
-        <div class="header-content" style="width: 515px;">
-            <input class="search" id="search" placeholder="搜索擂台号或筛选" type="search">
-        </div>
-        <div class="header-right ">
-            <a href="#"><span class="search-btn" onclick="onSerach()">搜索</span></a>
-        </div>
-
-        <div class="select-box" style="height: 630px;">
-            <!--<div class="select-header">-->
-            <!--<span>筛选</span><img src="~/Img/right.png" width="10" alt="">-->
-            <!--</div>-->
-
-            <div class="select-item">
-                <span>选择战区</span>
-                <ul class="dowebok" style="margin: 0">
-                    <li><input name="region" value="1" class="labelauty" id="zq1" style="display: none;" type="radio"><label for="zq1"><span class="labelauty-unchecked-image"></span><span class="labelauty-unchecked">微信区</span><span class="labelauty-checked-image"></span><span class="labelauty-checked">微信区</span></label></li>
-                    <li><input name="region" value="0" class="labelauty" id="zq2" style="display: none;" type="radio"><label for="zq2"><span class="labelauty-unchecked-image"></span><span class="labelauty-unchecked">QQ区</span><span class="labelauty-checked-image"></span><span class="labelauty-checked">QQ区</span></label></li>
-                </ul>
-            </div>
-            <div class="select-item">
-                <span>比赛模式</span>
-                <ul class="dowebok" style="margin: 0">
-                    <li><input name="model" value="0" class="labelauty" id="model1" style="display: none;" type="radio"><label for="model1"><span class="labelauty-unchecked-image"></span><span class="labelauty-unchecked">自由擂 1V1 墨家</span><span class="labelauty-checked-image"></span><span class="labelauty-checked">自由擂 1V1 墨家</span></label></li>
-                    <li><input name="model" value="1" class="labelauty" id="model2" style="display: none;" type="radio"><label for="model2"><span class="labelauty-unchecked-image"></span><span class="labelauty-unchecked">自由擂 3V3 长平</span><span class="labelauty-checked-image"></span><span class="labelauty-checked">自由擂 3V3 长平</span></label></li>
-                    <li><input name="model" value="2" class="labelauty" id="model3" style="display: none;" type="radio"><label for="model3"><span class="labelauty-unchecked-image"></span><span class="labelauty-unchecked">自由擂 5V5 深渊</span><span class="labelauty-checked-image"></span><span class="labelauty-checked">自由擂 5V5 深渊</span></label></li>
-                    <li><input name="model" value="3" class="labelauty" id="model4" style="display: none;" type="radio"><label for="model4"><span class="labelauty-unchecked-image"></span><span class="labelauty-unchecked">自由擂 5V5 王者</span><span class="labelauty-checked-image"></span><span class="labelauty-checked">自由擂 5V5 王者</span></label></li>
-                    <li><input name="model" value="4" class="labelauty" id="model5" style="display: none;" type="radio"><label for="model5"><span class="labelauty-unchecked-image"></span><span class="labelauty-unchecked">自由擂 5V5 征召</span><span class="labelauty-checked-image"></span><span class="labelauty-checked">自由擂 5V5 征召</span></label></li>
-                    <li><input name="model" value="5" class="labelauty" id="model6" style="display: none;" type="radio"><label for="model6"><span class="labelauty-unchecked-image"></span><span class="labelauty-unchecked">输赢排位赛：单排</span><span class="labelauty-checked-image"></span><span class="labelauty-checked">输赢排位赛</span></label></li>
-                    <li><input name="model" value="6" class="labelauty" id="model7" style="display: none;" type="radio"><label for="model7"><span class="labelauty-unchecked-image"></span><span class="labelauty-unchecked">排位输赢「大」</span><span class="labelauty-checked-image"></span><span class="labelauty-checked">排位输赢「大」</span></label></li>
-                    <li><input name="model" value="7" class="labelauty" id="model8" style="display: none;" type="radio"><label for="model8"><span class="labelauty-unchecked-image"></span><span class="labelauty-unchecked">排位输赢「小」</span><span class="labelauty-checked-image"></span><span class="labelauty-checked">排位输赢「小」</span></label></li>
-                    <li><input name="model" value="8" class="labelauty" id="model9" style="display: none;" type="radio"><label for="model9"><span class="labelauty-unchecked-image"></span><span class="labelauty-unchecked">排位输赢「单」</span><span class="labelauty-checked-image"></span><span class="labelauty-checked">排位输赢「单」</span></label></li>
-                    <li><input name="model" value="9" class="labelauty" id="model10" style="display: none;" type="radio"><label for="model10"><span class="labelauty-unchecked-image"></span><span class="labelauty-unchecked">排位输赢「双」</span><span class="labelauty-checked-image"></span><span class="labelauty-checked">排位输赢「双」</span></label></li>
-                </ul>
-            </div>
-            <div class="select-item">
-                <span>选择场次类型</span>
-                <ul class="dowebok" style="margin: 0">
-                    <li><input name="money_type" value="1" class="labelauty" id="zs" style="display: none;" type="radio"><label for="zs"><span class="labelauty-unchecked-image"></span><span class="labelauty-unchecked">钻石场</span><span class="labelauty-checked-image"></span><span class="labelauty-checked">钻石场</span></label></li>
-                    <li><input name="money_type" value="0" class="labelauty" id="jb" style="display: none;" type="radio"><label for="jb"><span class="labelauty-unchecked-image"></span><span class="labelauty-unchecked">金币场</span><span class="labelauty-checked-image"></span><span class="labelauty-checked">金币场</span></label></li>
-                </ul>
-            </div>
-            <div class="select-item" id="integral_select" hidden="">
-                <span>钻石选择</span>
-                <ul class="dowebok" style="margin: 0">
-                    <li><input name="integral_region" value="0" class="labelauty" id="integral1" style="display: none;" type="radio"><label for="integral1"><span class="labelauty-unchecked-image"></span><span class="labelauty-unchecked">30-100</span><span class="labelauty-checked-image"></span><span class="labelauty-checked">30-100</span></label></li>
-                    <li><input name="integral_region" value="1" class="labelauty" id="integral2" style="display: none;" type="radio"><label for="integral2"><span class="labelauty-unchecked-image"></span><span class="labelauty-unchecked">100-500</span><span class="labelauty-checked-image"></span><span class="labelauty-checked">100-500</span></label></li>
-                    <li><input name="integral_region" value="2" class="labelauty" id="integral3" style="display: none;" type="radio"><label for="integral3"><span class="labelauty-unchecked-image"></span><span class="labelauty-unchecked">500-1000</span><span class="labelauty-checked-image"></span><span class="labelauty-checked">500-1000</span></label></li>
-                    <li><input name="integral_region" value="3" class="labelauty" id="integral4" style="display: none;" type="radio"><label for="integral4"><span class="labelauty-unchecked-image"></span><span class="labelauty-unchecked">1000-3000</span><span class="labelauty-checked-image"></span><span class="labelauty-checked">1000-3000</span></label></li>
-                    <li><input name="integral_region" value="4" class="labelauty" id="integral5" style="display: none;" type="radio"><label for="integral5"><span class="labelauty-unchecked-image"></span><span class="labelauty-unchecked">3000以上</span><span class="labelauty-checked-image"></span><span class="labelauty-checked">3000以上</span></label></li>
-                </ul>
-            </div>
-            <div class="select-item" id="gold_select" hidden="">
-                <span>金币选择</span>
-                <ul class="dowebok" style="margin: 0">
-                    <li><input name="integral_region" value="100" class="labelauty" id="gold1" style="display: none;" type="radio"><label for="gold1"><span class="labelauty-unchecked-image"></span><span class="labelauty-unchecked">100</span><span class="labelauty-checked-image"></span><span class="labelauty-checked">100</span></label></li>
-                    <li><input name="integral_region" value="200" class="labelauty" id="gold2" style="display: none;" type="radio"><label for="gold2"><span class="labelauty-unchecked-image"></span><span class="labelauty-unchecked">200</span><span class="labelauty-checked-image"></span><span class="labelauty-checked">200</span></label></li>
-                    <li><input name="integral_region" value="500" class="labelauty" id="gold3" style="display: none;" type="radio"><label for="gold3"><span class="labelauty-unchecked-image"></span><span class="labelauty-unchecked">500</span><span class="labelauty-checked-image"></span><span class="labelauty-checked">500</span></label></li>
-                    <li><input name="integral_region" value="1000" class="labelauty" id="gold4" style="display: none;" type="radio"><label for="gold4"><span class="labelauty-unchecked-image"></span><span class="labelauty-unchecked">1000</span><span class="labelauty-checked-image"></span><span class="labelauty-checked">1000</span></label></li>
-                </ul>
-            </div>
-            <div class="select-item">
-                <span>手机系统</span>
-                <ul class="dowebok" style="margin: 0">
-                    <li><input name="systems_name" value="1" class="labelauty" id="system1" style="display: none;" type="radio"><label for="system1"><span class="labelauty-unchecked-image"></span><span class="labelauty-unchecked">苹果</span><span class="labelauty-checked-image"></span><span class="labelauty-checked">苹果</span></label></li>
-                    <li><input name="systems_name" value="0" class="labelauty" id="system2" style="display: none;" type="radio"><label for="system2"><span class="labelauty-unchecked-image"></span><span class="labelauty-unchecked">安卓</span><span class="labelauty-checked-image"></span><span class="labelauty-checked">安卓</span></label></li>
-                </ul>
-            </div>
-            <div class="select-item">
-                <span>房间状态</span>
-                <ul class="dowebok" style="margin: 0">
-                    <li><input name="status" value="0" class="labelauty" id="state1" style="display: none;" type="radio"><label for="state1"><span class="labelauty-unchecked-image"></span><span class="labelauty-unchecked">等待中</span><span class="labelauty-checked-image"></span><span class="labelauty-checked">等待中</span></label></li>
-                    <li><input name="status" value="1" class="labelauty" id="state2" style="display: none;" type="radio"><label for="state2"><span class="labelauty-unchecked-image"></span><span class="labelauty-unchecked">进行中</span><span class="labelauty-checked-image"></span><span class="labelauty-checked">进行中</span></label></li>
-                </ul>
-            </div>
-
-            <div class="select-footer">
-                <a href="#"><span class="confirm-btn" onclick="onSerach()">确定</span></a>
-            </div>
-
-        </div>
-        <div class="am-cf"></div>
-
-        <div class="sort-box" style="height: 26px;background: #333;width: 100%;border-bottom: 1px solid #ECECEC">
-            <div class="sort-item" data-type="0" id="date">按时间↓</div>
-            <div class="sort-item newRoad" data-type="1" id="num">个数</div>
-            <div class="sort-item" data-type="2" id="money">金币场</div>
-            <div class="sort-item" data-type="3" id="integral">钻石场</div>
-            <div class="sort-item" id="sc" onclick="showSelect(this)">筛选</div>
-        </div>
-    </div>
+    
 
 
     <div class="ring" id="room_list">
@@ -376,14 +286,14 @@
 
                 <div class="am-g">
                     <div class="am-u-sm-12">
-                        <span>擂台号:36777</span>
+                        <span>擂台号:@(Convert.ToInt32(ViewBag.RingID)+1)</span>
                     </div>
                     <div class="am-u-sm-offset-1 am-u-sm-10 am-u-end">
                         <span class="oath">擂台宣言：等你来战！</span>
                     </div>
                     <div class="am-u-sm-4 am-text-center">
                         <!--用户头像 -->
-                        <img src="~/Img/132_004.jpg" class="am-round" alt="" width="70" height="70"><br>
+                        <img src="~/Img/me.png" class="am-round" alt="" width="70" height="70"><br>
                         <img src="~/Img/boy.png" alt="" width="20">
                         <span class="username">Cm吃藕丑</span>
                         <span class="username">龙岩市</span>
@@ -399,13 +309,13 @@
                             <img src="~/Img/pg.png" alt="" width="12"><span style="vertical-align: middle;display: inline-block">苹果</span>                            <img src="~/Img/wx.png" alt="" width="12"><span style="vertical-align: middle;display: inline-block">微信区</span>
                         </span>
                         <span>
-                            等待打擂中...
+                            正在打擂中...
                         </span>
                         <!--<span>06月25日 20:47</span>-->
                     </div>
                     <!--等待用户加入-->
                     <div class="am-u-sm-4 am-text-center">
-                        <img src="~/Img/wait.png" class="am-round" alt="" width="70" height="70"><br>
+                        <img src="~/Img/me.png" class="am-round" alt="" width="70" height="70"><br>
                     </div>
                 </div>
             </div>
@@ -414,14 +324,14 @@
 
                 <div class="am-g">
                     <div class="am-u-sm-12">
-                        <span>擂台号:36776</span>
+                        <span>擂台号:@(Convert.ToInt32(ViewBag.RingID) + 2)</span>
                     </div>
                     <div class="am-u-sm-offset-1 am-u-sm-10 am-u-end">
                         <span class="oath">擂台宣言：等你来战！</span>
                     </div>
                     <div class="am-u-sm-4 am-text-center">
                         <!--用户头像 -->
-                        <img src="~/Img/132.jpg" class="am-round" alt="" width="70" height="70"><br>
+                        <img src="~/Img/me.png" class="am-round" alt="" width="70" height="70"><br>
                         <img src="~/Img/boy.png" alt="" width="20">
                         <span class="username">凉</span>
                         <span class="username">北京市</span>
@@ -437,13 +347,13 @@
                             <img src="~/Img/pg.png" alt="" width="12"><span style="vertical-align: middle;display: inline-block">苹果</span>                            <img src="~/Img/wx.png" alt="" width="12"><span style="vertical-align: middle;display: inline-block">微信区</span>
                         </span>
                         <span>
-                            等待打擂中...
+                            正在打擂中...
                         </span>
                         <!--<span>06月25日 20:46</span>-->
                     </div>
                     <!--等待用户加入-->
                     <div class="am-u-sm-4 am-text-center">
-                        <img src="~/Img/wait.png" class="am-round" alt="" width="70" height="70"><br>
+                        <img src="~/Img/me.png" class="am-round" alt="" width="70" height="70"><br>
                     </div>
                 </div>
             </div>
@@ -452,14 +362,14 @@
 
                 <div class="am-g">
                     <div class="am-u-sm-12">
-                        <span>擂台号:36774</span>
+                        <span>擂台号:@(Convert.ToInt32(ViewBag.RingID) + 3)</span>
                     </div>
                     <div class="am-u-sm-offset-1 am-u-sm-10 am-u-end">
                         <span class="oath">擂台宣言：等你来战！</span>
                     </div>
                     <div class="am-u-sm-4 am-text-center">
                         <!--用户头像 -->
-                        <img src="~/Img/132_002.jpg" class="am-round" alt="" width="70" height="70"><br>
+                        <img src="~/Img/me.png" class="am-round" alt="" width="70" height="70"><br>
                         <img src="~/Img/boy.png" alt="" width="20">
                         <span class="username">Faine</span>
                         <span class="username">景德镇市</span>
@@ -492,7 +402,7 @@
 
                 <div class="am-g">
                     <div class="am-u-sm-12">
-                        <span>擂台号:36772</span>
+                        <span>擂台号:@(Convert.ToInt32(ViewBag.RingID) + 4)</span>
                     </div>
                     <div class="am-u-sm-offset-1 am-u-sm-10 am-u-end">
                         <span class="oath">擂台宣言：等你来战！</span>
@@ -532,7 +442,7 @@
 
                 <div class="am-g">
                     <div class="am-u-sm-12">
-                        <span>擂台号:36771</span>
+                        <span>擂台号:@(Convert.ToInt32(ViewBag.RingID) + 5)</span>
                     </div>
                     <div class="am-u-sm-offset-1 am-u-sm-10 am-u-end">
                         <span class="oath">擂台宣言：等你来战！</span>
@@ -572,14 +482,14 @@
 
                 <div class="am-g">
                     <div class="am-u-sm-12">
-                        <span>擂台号:36770</span>
+                        <span>擂台号:@(Convert.ToInt32(ViewBag.RingID) + 6)</span>
                     </div>
                     <div class="am-u-sm-offset-1 am-u-sm-10 am-u-end">
                         <span class="oath">擂台宣言：等你来战！</span>
                     </div>
                     <div class="am-u-sm-4 am-text-center">
                         <!--用户头像 -->
-                        <img src="~/Img/132_003.jpg" class="am-round" alt="" width="70" height="70"><br>
+                        <img src="~/Img/me.png" class="am-round" alt="" width="70" height="70"><br>
                         <img src="~/Img/boy.png" alt="" width="20">
                         <span class="username">木头</span>
                         <span class="username">南京市</span>
@@ -612,14 +522,14 @@
 
                 <div class="am-g">
                     <div class="am-u-sm-12">
-                        <span>擂台号:36769</span>
+                        <span>擂台号:@(Convert.ToInt32(ViewBag.RingID) + 7)</span>
                     </div>
                     <div class="am-u-sm-offset-1 am-u-sm-10 am-u-end">
                         <span class="oath">擂台宣言：等你来战！</span>
                     </div>
                     <div class="am-u-sm-4 am-text-center">
                         <!--用户头像 -->
-                        <img src="~/Img/132_002.jpg" class="am-round" alt="" width="70" height="70"><br>
+                        <img src="~/Img/me.png" class="am-round" alt="" width="70" height="70"><br>
                         <img src="~/Img/boy.png" alt="" width="20">
                         <span class="username">Faine</span>
                         <span class="username">景德镇市</span>
@@ -652,14 +562,14 @@
 
                 <div class="am-g">
                     <div class="am-u-sm-12">
-                        <span>擂台号:36767</span>
+                        <span>擂台号:@(Convert.ToInt32(ViewBag.RingID) + 8)</span>
                     </div>
                     <div class="am-u-sm-offset-1 am-u-sm-10 am-u-end">
                         <span class="oath">擂台宣言：等你来战！</span>
                     </div>
                     <div class="am-u-sm-4 am-text-center">
                         <!--用户头像 -->
-                        <img src="~/Img/132_002.jpg" class="am-round" alt="" width="70" height="70"><br>
+                        <img src="~/Img/me.png" class="am-round" alt="" width="70" height="70"><br>
                         <img src="~/Img/boy.png" alt="" width="20">
                         <span class="username">Faine</span>
                         <span class="username">景德镇市</span>
@@ -692,14 +602,14 @@
 
                 <div class="am-g">
                     <div class="am-u-sm-12">
-                        <span>擂台号:36765</span>
+                        <span>擂台号:@(Convert.ToInt32(ViewBag.RingID) + 9)</span>
                     </div>
                     <div class="am-u-sm-offset-1 am-u-sm-10 am-u-end">
                         <span class="oath">擂台宣言：等你来战！</span>
                     </div>
                     <div class="am-u-sm-4 am-text-center">
                         <!--用户头像 -->
-                        <img src="~/Img/132_003.jpg" class="am-round" alt="" width="70" height="70"><br>
+                        <img src="~/Img/me.png" class="am-round" alt="" width="70" height="70"><br>
                         <img src="~/Img/boy.png" alt="" width="20">
                         <span class="username">木头</span>
                         <span class="username">南京市</span>
@@ -732,7 +642,7 @@
 
                 <div class="am-g">
                     <div class="am-u-sm-12">
-                        <span>擂台号:36764</span>
+                        <span>擂台号:@(Convert.ToInt32(ViewBag.RingID) + 10)</span>
                     </div>
                     <div class="am-u-sm-offset-1 am-u-sm-10 am-u-end">
                         <span class="oath">擂台宣言：等你来战！</span>
@@ -858,12 +768,18 @@
                 </a>
             </li>
             <li>
-                <a onclick="goToRoomByLevel()" class="">
+                <a href="~/Room/Room" class="">
                     <img src="~/Img/ring_yes.png" alt="擂台">
                     <span class="am-navbar-label" style="color: #F6DB7F;">擂台</span>
                 </a>
             </li>
-            <li>
+            @*<li>
+                <a onclick="goToRoomByLevel()" class="">
+                    <img src="~/Img/ring_yes.png" alt="擂台">
+                    <span class="am-navbar-label" style="color: #F6DB7F;">擂台</span>
+                </a>
+            </li>*@
+            @*<li>
                 <a href="#" class="">
                     <img src="~/Img/event.png" alt="赛事">
                     <span class="am-navbar-label">赛事</span>
@@ -880,7 +796,7 @@
                     <img src="~/Img/me.png" alt="我的">
                     <span class="am-navbar-label">我的</span>
                 </a>
-            </li>
+            </li>*@
         </ul>
     </div>
     <script>

@@ -250,7 +250,7 @@
                     <span class="title">比赛模式：</span>
                 </div>
                 <div class="am-u-sm-7 am-u-end">
-                    <select name="model" data-am-selected="" style="display: none;">
+                    <select name="model"  id="model" data-am-selected="" style="display: none;">
                         <option value="5" selected="selected">输赢排位赛</option>
                         <!--<option value="6" >排位擂 输赢 大</option>
                         -->
@@ -308,10 +308,10 @@
                 <div class="am-u-sm-3" id="bbb">
                     <select name="bbb" id="in_num" data-am-selected="" placeholder="自定义不低于1000钻" style="display: none;">
                         <option value="0" selected="selected">选择钻石</option>
-                        <option value="1000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1000&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
-                        <option value="2000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2000&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
-                        <option value="3000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3000&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
-                        <option value="5000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5000&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
+                        <option value="1000">&nbsp;&nbsp;&nbsp;&nbsp;1000&nbsp;&nbsp;&nbsp;&nbsp;</option>
+                        <option value="2000">&nbsp;&nbsp;&nbsp;&nbsp;2000&nbsp;&nbsp;&nbsp;&nbsp;</option>
+                        <option value="3000">&nbsp;&nbsp;&nbsp;&nbsp;3000&nbsp;&nbsp;&nbsp;&nbsp;</option>
+                        <option value="5000">&nbsp;&nbsp;&nbsp;&nbsp;5000&nbsp;&nbsp;&nbsp;&nbsp;</option>
                     </select>
                     @*<div class="am-selected am-dropdown " id="am-selected-oxjy4" data-am-dropdown="">
                             <button type="button" class="am-selected-btn am-btn am-dropdown-toggle am-btn-default">
@@ -333,7 +333,7 @@
                     <!--<span class="confirm-btn">30钻石</span>-->
                 </div>
                 <div class="am-u-sm-5 am-padding-right-0 " id="zsbox">
-                    <input id="integral" onkeyup="value=value.replace(/[^\d]/g,'')" placeholder="自定义不低于1000钻" style="width: 100%" type="text">
+                    <input id="integral" onkeyup="value=value.replace(/[^\d]/g,'')" placeholder="自定义不低于1000钻" style="width: 90%" type="text">
                 </div>
                 <!--<div class="am-u-sm-5 am-u-end" id="jbbox">-->
                 <!--<select name="integral" id="integral_select" data-am-selected="">-->
@@ -355,7 +355,7 @@
                     <span class="title" id="current_show_span">当前钻石：</span>
                 </div>
                 <div class="am-u-sm-8 ">
-                    <span class="title" id="user_money">0</span>
+                    <span class="title" id="user_money">@ViewBag.NumberOfDiamonds</span>
                     <!--<input type="text"  value="0.00" readonly>-->
                 </div>
             </div>
@@ -464,7 +464,8 @@
                         console.log(integral);
                     }
                 }
-                var model = $('select[name="model"]').val();
+                // var model = $('select[name="model"]').val();
+                var model = $("#model").find("option:selected").text();
                 //            console.info(integral);
                 //            console.info(model);
                 var re = /^[1-9]+[0-9]*]*$/;
@@ -482,6 +483,16 @@
                 }
                 if ( integral < 1000 && money_type == 1) {
                     layer.msg('钻石场必须不低于1000钻石！');
+                    return;
+                }
+                if(@ViewBag.NumberOfDiamonds<integral)
+                {
+                    layer.confirm("钻石不足！", {
+                        btn: ['充值', '取消'] //按钮
+                    }, function () {
+                        window.location.href = "~/Home/Addmoney";
+                    }, function () {
+                    });
                     return;
                 }
                 //            if(declaration == ''){

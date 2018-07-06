@@ -212,8 +212,8 @@ namespace GamePro.BaseFunction
                     ).FirstOrDefault();
                 if (user != null)
                 {
-                    HttpContext.Current.Session["id"] = user.ID;
-                    HttpContext.Current.Session["nickname"] = user.nickname;
+                    HttpContext.Current.Session["ID"] = user.ID;
+                    HttpContext.Current.Session["NickName"] = user.nickname;
                     HttpContext.Current.Session["OpenID"] = user.OpenID;
                     if (user.OpenID != OpenID)
                     {   //如果OpenID不一致时更数据库
@@ -229,8 +229,8 @@ namespace GamePro.BaseFunction
                       ).FirstOrDefault();
                 if (user != null)
                 {
-                    HttpContext.Current.Session["id"] = user.ID;
-                    HttpContext.Current.Session["nickname"] = user.nickname;
+                    HttpContext.Current.Session["ID"] = user.ID;
+                    HttpContext.Current.Session["NickName"] = user.nickname;
                     HttpContext.Current.Session["OpenID"] = user.OpenID;
                 }
             }

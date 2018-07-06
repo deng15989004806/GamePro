@@ -95,15 +95,15 @@ namespace GamePro.Controllers
             var result = weixinService.get_accesstoken_bycode(Request["code"]);
             if (result != null)
                 HttpContext.Session.Add("OpenID", result.openid);   //获取openid
-            if ((Session["id"] == null || string.IsNullOrEmpty(Session["id"].ToString())) && result.openid == null)
+            if ((Session["ID"] == null || string.IsNullOrEmpty(Session["ID"].ToString())) || string.IsNullOrEmpty(result.openid))
             {
                 if (Session["OpenID"] != null)
                 {
                     var user = db.User.FirstOrDefault(x => x.OpenID == Session["OpenID"].ToString());
                     if (user != null)
                     {
-                        Session["id"] = user.ID;
-                        Session["nickname"] = user.nickname;
+                        Session["ID"] = user.ID;
+                        Session["NickName"] = user.nickname;
 
                     }
                     else
@@ -113,9 +113,9 @@ namespace GamePro.Controllers
                     return RedirectToAction("Login", "Home");
             }
             //else
-                weixinService.AutoLogin(result.openid, Convert.ToInt32(Session["id"])); //当openid或用户ID有一个不为空时自动登录
+                weixinService.AutoLogin(result.openid, Convert.ToInt32(Session["ID"])); //当openid或用户ID有一个不为空时自动登录
 
-            //return Content("用户" + Session["nickname"] + "登陆成功" + Session["OpenID"]);
+            //return Content("用户" + Session["NickName"] + "登陆成功" + Session["OpenID"]);
             //wxModelMessage.sendMessage("", weixinService.Access_token + ","+ result.openid);
             //return Content(weixinService.Access_token + "," + result.openid);
             return View();
@@ -280,8 +280,8 @@ namespace GamePro.Controllers
                 db.User.Add(u);
                 if (db.SaveChanges() > 0)
                 {
-                    Session["id"] = u.ID;
-                    Session["nickname"] = u.nickname;
+                    Session["ID"] = u.ID;
+                    Session["NickName"] = u.nickname;
                     return Json("注册成功");
                 }
                 else
@@ -337,8 +337,8 @@ namespace GamePro.Controllers
             User u = (from c in db.User where c.phone == phone && c.password == password select c).FirstOrDefault();
             if (u != null)
             {
-                Session["id"] = u.ID;
-                Session["nickname"] = u.nickname;
+                Session["ID"] = u.ID;
+                Session["NickName"] = u.nickname;
                 if (Session["OpenID"] != null)
                 {
                     u.OpenID = Session["OpenID"].ToString();
@@ -348,9 +348,9 @@ namespace GamePro.Controllers
 
 
                 //wxModelMessage mm = new wxModelMessage();
-                //wxModelMessage.sendMessage(mm.FromUserName, "您好" + Session["nickname"]);
+                //wxModelMessage.sendMessage(mm.FromUserName, "您好" + Session["NickName"]);
                 //return View();
-                //return Json(Session["id"]);
+                //return Json(Session["ID"]);
                 //return RedirectToAction("Index", "Home");
                 return Json("登陆成功");
             }
@@ -363,7 +363,7 @@ namespace GamePro.Controllers
         }
         public ActionResult pageindex()
         {
-            if (Session["id"] == null)
+            if (Session["ID"] == null)
             {
                 return RedirectToAction("Index");
             }

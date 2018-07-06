@@ -1,4 +1,5 @@
-﻿using GamePro.Models;
+﻿using GamePro.BaseFunction;
+using GamePro.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,12 +15,30 @@ namespace GamePro.Controllers
         //擂台
         public ActionResult Room()
         {
+            if (string.IsNullOrEmpty(Convert.ToString(Session["OpenID"])) || string.IsNullOrEmpty(Convert.ToString(Session["ID"])))
+                weixinService.AutoLogin(Convert.ToString(Session["OpenID"]), Convert.ToInt32(Session["ID"]));
             return View();
         }
         //摆擂
         public ActionResult Add()
         {
-            return View();
+            try
+            {
+                Session["OpenID"] = "opc-H017tPwpaC4g33T-ErmzzGgs";
+                
+                if (string.IsNullOrEmpty(Convert.ToString(Session["OpenID"])) || string.IsNullOrEmpty(Convert.ToString(Session["ID"])))
+                    weixinService.AutoLogin(Convert.ToString(Session["OpenID"]), Convert.ToInt32(Session["ID"]));
+                string OpenID = Session["OpenID"].ToString();
+                var user = (
+                    from a in db.User.Where(x => x.OpenID == OpenID) select a
+                    ).FirstOrDefault();
+                ViewBag.NumberOfDiamonds = user.NumberOfDiamonds;
+                return View();
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message);
+            }
         }
 
         [HttpPost]
@@ -27,8 +46,8 @@ namespace GamePro.Controllers
         {
             try
             {
-                //Session["id"] = "10006";
-                var id = Convert.ToInt32(Session["id"]);
+                //Session["ID"] = "10006";
+                var id = Convert.ToInt32(Session["ID"]);
                 var integral = Request.Form["integral"];
                 var model = Request.Form["model"];
                 Ring ring = new Ring();
@@ -38,7 +57,7 @@ namespace GamePro.Controllers
                 db.Ring.Add(ring);
                 if (db.SaveChanges() > 0)
                 {
-                    return Json("摆擂成功");
+                    return Json("摆擂成功，联系客服安排比赛");
                 }
                 else
                 {
@@ -47,8 +66,8 @@ namespace GamePro.Controllers
             }
             catch (Exception ex)
             {
-                return Json("摆擂失败"+ex.Message);
+                return Json("摆擂失败" + ex.Message);
             }
-            }
+        }
     }
 }
