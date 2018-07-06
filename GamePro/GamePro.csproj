@@ -252,6 +252,7 @@
     <Compile Include="Models\User.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\RankView.cs" />
     <Compile Include="ViewModel\UserAccessToken.cs" />
     <Compile Include="ViewModel\Users\wxUserData.cs" />
     <Compile Include="ViewModel\Users\wxUserGroup.cs" />
@@ -287,6 +288,7 @@
     <Content Include="Img\132_005.jpg" />
     <Content Include="Img\5ab61a1239082.jpg" />
     <Content Include="Img\5ab61dba59b30.jpg" />
+    <Content Include="Img\bronze.png" />
     <Content Include="Img\ewm.png" />
     <Content Include="Img\asd23.jpg" />
     <Content Include="Img\award.png" />
@@ -301,6 +303,7 @@
     <Content Include="Img\game_bg2.png" />
     <Content Include="Img\game_bg3.png" />
     <Content Include="Img\girl.png" />
+    <Content Include="Img\gold.png" />
     <Content Include="Img\home.png" />
     <Content Include="Img\home_yes.png" />
     <Content Include="Img\ic_add_room.png" />
@@ -317,6 +320,7 @@
     <Content Include="Img\ring_bg3.png" />
     <Content Include="Img\ring_yes.png" />
     <Content Include="Img\search.png" />
+    <Content Include="Img\silve.png" />
     <Content Include="Img\star.png" />
     <Content Include="Img\thumb_add_room_image_375_185.png" />
     <Content Include="Img\vs.png" />
@@ -398,6 +402,7 @@
     <None Include="Properties\PublishProfiles\local.pubxml" />
     <Content Include="Views\Home\Addmoney.cshtml" />
     <Content Include="Views\Home\GameShow.cshtml" />
+    <Content Include="Views\Room\Rank.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

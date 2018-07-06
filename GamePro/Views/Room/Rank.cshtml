@@ -1,0 +1,356 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html class="js cssanimations">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>微来时空</title>
+    <!-- Set render engine for 360 browser -->
+    <meta name="renderer" content="webkit">
+    <!-- No Baidu Siteapp-->
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI">
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileColor" content="#0e90d2">
+    <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
+    <!--
+    <link rel="canonical" href="http://www.example.com/">
+    -->
+    <link rel="stylesheet" href="~/Content/amazeui.css">
+    <link rel="stylesheet" href="~/Content/app.css">
+    <!--<link rel="stylesheet" href="/Public/assets/css/index.css">-->
+    <!--必要样式-->
+    <style>
+    </style>
+</head>
+
+<body>
+    <header data-am-widget="header" class="am-header am-header-default am-no-layout">
+        <div class="am-header-left am-header-nav">
+            <a href="http://www.7893927.cn/Home/Index" class="">
+                <img src="~/Img/left.png" alt="" style="margin: 5px">
+            </a>
+        </div>
+        <h1 class="am-header-title">
+            <a href="#title-link" class="">
+                微来时空排行榜
+            </a>
+        </h1>
+    </header>
+    <style>
+        .rank-header {
+            /*background: #333;*/
+            background: #efefef;
+            line-height: 40px;
+            color: #333;
+            font-size: 15px;
+        }
+
+        .rank {
+            color: #333;
+            line-height: 52px;
+            font-size: 13px;
+        }
+
+        .rank-item {
+            border: 1px solid #F2F2F2;
+        }
+
+            .rank-item .name {
+                width: 69%;
+                display: inline-block;
+                padding-left: 5%;
+                word-break: keep-all; /* 不换行 */
+                white-space: nowrap; /* 不换行 */
+                overflow: hidden; /* 内容超出宽度时隐藏超出部分的内容 */
+                text-overflow: ellipsis;
+                vertical-align: middle;
+            }
+
+        .rank-item-num {
+            font-size: 15px;
+        }
+
+        [data-am-widget=tabs] {
+            margin: 0px;
+        }
+
+        .am-tabs-bd {
+            border: none;
+        }
+
+        .am-tabs-d2 .am-tabs-nav > .am-active a {
+            color: #333;
+        }
+
+        .am-tabs-d2 .am-tabs-nav > .am-active {
+            border-color: #333;
+        }
+
+            .am-tabs-d2 .am-tabs-nav > .am-active:after {
+                border-bottom-color: #333;
+            }
+
+        .am-tabs-bd .am-tab-panel {
+            padding: 0;
+        }
+
+        .am-tabs-d2 .am-tabs-nav {
+            background: #CCC;
+        }
+
+        .am-tabs-default .am-tabs-nav > .am-active a {
+            background-color: #EEE;
+        }
+
+        .am-tabs-default .am-tabs-nav > .am-active:after {
+            border: none;
+        }
+
+        .am-header .am-header-title {
+            overflow: inherit;
+        }
+    </style>
+    <div data-am-widget="tabs" class="am-tabs am-tabs-d2 am-no-layout">
+        <ul class="am-tabs-nav am-cf" id="doc-my-tabs">
+
+            @*<li class=""><a href="#" data-type="0">胜率榜</a></li>
+
+            <li class=""><a href="#" data-type="3">对战次数榜</a></li>
+            <li class="am-active"><a href="#" data-type="4">金币榜</a></li>*@
+            <li class=""><a href="#" data-type="5">钻石榜</a></li>
+        </ul>
+        <div class="am-tabs-bd" style="touch-action: pan-y; -moz-user-select: none;">
+            <!--胜率-->
+            @*<div data-tab-panel-0="" class="am-tab-panel">
+
+                <div data-am-widget="tabs" class="am-tabs am-tabs-default am-no-layout">
+                    <ul class="am-tabs-nav am-cf" id="rank-tabs" style="background: #DDD">
+                        <li class="am-active"><a href="#" data-type="0">1V1</a></li>
+                        <li class=""><a href="#" data-type="1">3V3</a></li>
+                        <li class=""><a href="#" data-type="2">5V5</a></li>
+                    </ul>
+                    <div class="am-tabs-bd" style="touch-action: pan-y; -moz-user-select: none;">
+                        <div data-tab-panel-sm-0="" class="am-tab-panel am-active">
+                            <span style="padding-left: 20px;font-size: 11px;background-color: #efefef;display: block;color: #FABE30;margin-bottom:-10px ;">*当前为1000场以上的排行</span>
+                            <div class="intergral" id="1v1_rank">
+                                <div class="am-g rank-header">
+                                    <div class="am-u-sm-2">
+                                        <span>&nbsp;</span>
+                                    </div>
+                                    <div class="am-u-sm-5 am-padding-left-0">
+                                        <span>玩家</span>
+                                    </div>
+                                    <div class="am-u-sm-2 am-text-center am-padding-0">
+                                        <span>胜率</span>
+                                    </div>
+                                    <div class="am-u-sm-3">
+                                        <span>胜场</span>
+                                    </div>
+                                </div>
+                                <div class="rank">
+                                </div>
+                            </div>
+                        </div>
+                        <div data-tab-panel-sm-1="" class="am-tab-panel ">
+                            <span style="padding-left: 20px;font-size: 11px;background-color: #efefef;display: block;color: #FABE30;margin-bottom:-10px ;">*当前为1000场以上的排行</span>
+                            <div class="intergral" id="3v3_rank">
+                            </div>
+                        </div>
+                        <div data-tab-panel-sm-2="" class="am-tab-panel ">
+                            <span style="padding-left: 20px;font-size: 11px;background-color: #efefef;display: block;color: #FABE30;margin-bottom:-10px ;">*当前为1000场以上的排行</span>
+                            <div class="intergral" id="5v5_rank">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>*@
+      
+            <!--钻石榜-->
+            <div data-am-widget="tabs" class="am-tabs am-tabs-default am-no-layout">
+            
+                    <div class="intergral" id="integral_list">
+                        <div class="am-g rank-header">
+                            <div class="am-u-sm-2">
+                                <span>&nbsp;</span>
+                            </div>
+                            <div class="am-u-sm-5 am-padding-left-0">
+                                <span>玩家</span>
+                            </div>
+                            <div class="am-u-sm-5 am-text-center am-padding-0">
+                                <span>对战获得钻石</span>
+                            </div>
+                            <!--<div class="am-u-sm-3">-->
+                            <!--<span>胜场</span>-->
+                            <!--</div>-->
+                        </div>
+                        <div class="rank">
+                            <div class="am-g rank-item">
+                                <div class="am-u-sm-2 am-text-center">
+                                    <img src="~/Img/gold.png" alt="" width="24">
+                                </div>
+                                <div class="am-u-sm-5 am-padding-right-0 am-padding-left-0">
+                                    <img src="~/Img/default_image.jpg" class="am-round" alt="" width="40" height="40"><span class="name">微来时空2号</span>
+                                </div>
+                                <div class="am-u-sm-5 am-text-center">
+                                    <span>17395362</span>
+                                </div>
+                                <!--<div class="am-u-sm-3 am-padding-right-0">-->
+                                <!--<span>/3261</span>-->
+                                <!--</div>-->
+                            </div><div class="am-g rank-item">
+                                <div class="am-u-sm-2 am-text-center">
+                                    <img src="~/Img/silve.png" alt="" width="24">
+                                </div>
+                                <div class="am-u-sm-5 am-padding-right-0 am-padding-left-0">
+                                    <img src="~/Img/default_image.jpg" class="am-round" alt="" width="40" height="40"><span class="name">聪</span>
+                                </div>
+                                <div class="am-u-sm-5 am-text-center">
+                                    <span>11492919</span>
+                                </div>
+                                <!--<div class="am-u-sm-3 am-padding-right-0">-->
+                                <!--<span>/6</span>-->
+                                <!--</div>-->
+                            </div><div class="am-g rank-item">
+                                <div class="am-u-sm-2 am-text-center">
+                                    <img src="~/Img/bronze.png" alt="" width="24">
+                                </div>
+                                <div class="am-u-sm-5 am-padding-right-0 am-padding-left-0">
+                                    <img src="~/Img/default_image.jpg" class="am-round" alt="" width="40" height="40"><span class="name">微来时空官方系统号</span>
+                                </div>
+                                <div class="am-u-sm-5 am-text-center">
+                                    <span>10404490</span>
+                                </div>
+                                <!--<div class="am-u-sm-3 am-padding-right-0">-->
+                                <!--<span>/2146</span>-->
+                                <!--</div>-->
+                            </div><div class="am-g rank-item">
+                                <div class="am-u-sm-2 am-text-center">
+                                    <span class="rank-item-num">4</span>
+                                </div>
+                                <div class="am-u-sm-5 am-padding-right-0 am-padding-left-0">
+                                    <img src="~/Img/default_image.jpg" class="am-round" alt="" width="40" height="40"><span class="name">ng</span>
+                                </div>
+                                <div class="am-u-sm-5 am-text-center">
+                                    <span>7535359</span>
+                                </div>
+                                <!--<div class="am-u-sm-3 am-padding-right-0">-->
+                                <!--<span>/40</span>-->
+                                <!--</div>-->
+                            </div><div class="am-g rank-item">
+                                <div class="am-u-sm-2 am-text-center">
+                                    <span class="rank-item-num">5</span>
+                                </div>
+                                <div class="am-u-sm-5 am-padding-right-0 am-padding-left-0">
+                                    <img src="~/Img/default_image.jpg" class="am-round" alt="" width="40" height="40"><span class="name">MrSun</span>
+                                </div>
+                                <div class="am-u-sm-5 am-text-center">
+                                    <span>6210202</span>
+                                </div>
+                                <!--<div class="am-u-sm-3 am-padding-right-0">-->
+                                <!--<span>/426</span>-->
+                                <!--</div>-->
+                            </div><div class="am-g rank-item">
+                                <div class="am-u-sm-2 am-text-center">
+                                    <span class="rank-item-num">6</span>
+                                </div>
+                                <div class="am-u-sm-5 am-padding-right-0 am-padding-left-0">
+                                    <img src="~/Img/default_image.jpg" class="am-round" alt="" width="40" height="40"><span class="name">微来时空官方系统号</span>
+                                </div>
+                                <div class="am-u-sm-5 am-text-center">
+                                    <span>4460250</span>
+                                </div>
+                                <!--<div class="am-u-sm-3 am-padding-right-0">-->
+                                <!--<span>/1572</span>-->
+                                <!--</div>-->
+                            </div><div class="am-g rank-item">
+                                <div class="am-u-sm-2 am-text-center">
+                                    <span class="rank-item-num">7</span>
+                                </div>
+                                <div class="am-u-sm-5 am-padding-right-0 am-padding-left-0">
+                                    <img src="~/Img/default_image.jpg" class="am-round" alt="" width="40" height="40"><span class="name">微来时空官方系统号</span>
+                                </div>
+                                <div class="am-u-sm-5 am-text-center">
+                                    <span>2752179</span>
+                                </div>
+                                <!--<div class="am-u-sm-3 am-padding-right-0">-->
+                                <!--<span>/2080</span>-->
+                                <!--</div>-->
+                            </div><div class="am-g rank-item">
+                                <div class="am-u-sm-2 am-text-center">
+                                    <span class="rank-item-num">8</span>
+                                </div>
+                                <div class="am-u-sm-5 am-padding-right-0 am-padding-left-0">
+                                    <img src="~/Img/default_image.jpg" class="am-round" alt="" width="40" height="40"><span class="name">7years</span>
+                                </div>
+                                <div class="am-u-sm-5 am-text-center">
+                                    <span>1468306</span>
+                                </div>
+                                <!--<div class="am-u-sm-3 am-padding-right-0">-->
+                                <!--<span>/148</span>-->
+                                <!--</div>-->
+                            </div><div class="am-g rank-item">
+                                <div class="am-u-sm-2 am-text-center">
+                                    <span class="rank-item-num">9</span>
+                                </div>
+                                <div class="am-u-sm-5 am-padding-right-0 am-padding-left-0">
+                                    <img src="~/Img/default_image.jpg" class="am-round" alt="" width="40" height="40"><span class="name">chq</span>
+                                </div>
+                                <div class="am-u-sm-5 am-text-center">
+                                    <span>1170370</span>
+                                </div>
+                                <!--<div class="am-u-sm-3 am-padding-right-0">-->
+                                <!--<span>/520</span>-->
+                                <!--</div>-->
+                            </div><div class="am-g rank-item">
+                                <div class="am-u-sm-2 am-text-center">
+                                    <span class="rank-item-num">10</span>
+                                </div>
+                                <div class="am-u-sm-5 am-padding-right-0 am-padding-left-0">
+                                    <img src="~/Img/default_image.jpg" class="am-round" alt="" width="40" height="40"><span class="name">特兰克斯</span>
+                                </div>
+                                <div class="am-u-sm-5 am-text-center">
+                                    <span>1001964</span>
+                                </div>
+                                <!--<div class="am-u-sm-3 am-padding-right-0">-->
+                                <!--<span>/479</span>-->
+                                <!--</div>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+
+    <!--[if (gte IE 9)|!(IE)]><!-->
+    <script src="~/Script/jquery.min.js"></script>
+    <script src="~/Script/angular.min.js"></script>
+    <script src="~/Script/amazeui.min.js"></script>
+    <script type="text/javascript">
+
+    $('.am-tabs-nav').find('a').on('opened.tabs.amui', function(e) {
+        var type = $(this).data('type');
+        //getRankList(type);
+    });
+
+    //getRankList(0);
+    //getRankList(5);
+    </script>
+
+</body>
+</html>

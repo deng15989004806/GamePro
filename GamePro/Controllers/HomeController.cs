@@ -22,6 +22,7 @@ namespace GamePro.Controllers
 {
     public class HomeController : Controller
     {
+        static string  OpenID="";
         private string PostInput()
         {
             try
@@ -45,6 +46,8 @@ namespace GamePro.Controllers
 
         // GET: Home
         GameWZEntities db = new GameWZEntities();
+
+
         public ActionResult Index()
         {
             //string echostring = Request.QueryString["echoStr"];
@@ -69,16 +72,16 @@ namespace GamePro.Controllers
                 mm.ParseXML(message);
                 LogService.Write("发送方：" + mm.FromUserName);
                 LogService.Write("接收方：" + mm.ToUserName);
-                LogService.Write("事件值："+mm.Event);
+                LogService.Write("事件值：" + mm.Event);
                 if (mm.Event == "subscribe")
                 {
-                    LogService.Write("关注ID" +mm.FromUserName);
+                    LogService.Write("关注ID" + mm.FromUserName);
                     wxModelMessage.sendMessage(mm.FromUserName, "因公众号功能还在完善中。。。。需要咨询礼包和各类游戏活动的朋友请加微信号：He0705h  回复消息有惊喜");
-                   
+
                 }
                 if (mm.MsgType == "text")
                 {
-                    LogService.Write("收到消息"+mm.Content);
+                    LogService.Write("收到消息" + mm.Content);
                     //wxModelMessage.sendMessage(mm.FromUserName, "收到"+mm.Content);
                     wxModelMessage.sendImageMessage(mm.FromUserName, "pt3-_5yeWi40YpNGW3eLJUKk5hcTf2GNHW9CU3TPSVWx6DplgMOki45UtH7xocFQ");
                     LogService.Write("发送二维码成功");
@@ -86,24 +89,33 @@ namespace GamePro.Controllers
 
 
             }
-                if (Request["code"] == null)
+            if (Request["code"] == null || Request["code"] == "")
             {
-                 string url = weixinService.OAuth2("http://www.7893927.cn/Home/Index", 0);
-              
+                string url = weixinService.OAuth2("http://www.7893927.cn/Home/Index", 0);
+
                 System.Web.HttpContext.Current.Response.Redirect(url);
+                return View();
             }
             var result = weixinService.get_accesstoken_bycode(Request["code"]);
             if (result != null)
-                HttpContext.Session.Add("OpenID", result.openid);   //获取openid
-            if ((Session["ID"] == null || string.IsNullOrEmpty(Session["ID"].ToString())) || string.IsNullOrEmpty(result.openid))
             {
-                if (Session["OpenID"] != null)
+                HttpContext.Session["OpenID"] = result.openid;
+            }
+            //HttpContext.Session.Add("OpenID", result.openid);   //获取openid
+            else
+            {
+                Response.Write("登录失败,请重新登录。");
+                return View();
+            }
+            if ((HttpContext.Session["ID"] == null || string.IsNullOrEmpty(HttpContext.Session["ID"].ToString())) || string.IsNullOrEmpty(result.openid))
+            {
+                if (HttpContext.Session["OpenID"] != null)
                 {
-                    var user = db.User.FirstOrDefault(x => x.OpenID == Session["OpenID"].ToString());
+                    var user = db.User.FirstOrDefault(x => x.OpenID == HttpContext.Session["OpenID"].ToString());
                     if (user != null)
                     {
-                        Session["ID"] = user.ID;
-                        Session["NickName"] = user.nickname;
+                        HttpContext.Session["ID"] = user.ID;
+                        HttpContext.Session["NickName"] = user.nickname;
 
                     }
                     else
@@ -113,11 +125,12 @@ namespace GamePro.Controllers
                     return RedirectToAction("Login", "Home");
             }
             //else
-                weixinService.AutoLogin(result.openid, Convert.ToInt32(Session["ID"])); //当openid或用户ID有一个不为空时自动登录
+            weixinService.AutoLogin(result.openid, Convert.ToInt32(Session["ID"])); //当openid或用户ID有一个不为空时自动登录
 
             //return Content("用户" + Session["NickName"] + "登陆成功" + Session["OpenID"]);
             //wxModelMessage.sendMessage("", weixinService.Access_token + ","+ result.openid);
             //return Content(weixinService.Access_token + "," + result.openid);
+            ViewBag.OpenID= result.openid;
             return View();
         }
         public ActionResult getaccesstoken()
@@ -437,5 +450,6 @@ namespace GamePro.Controllers
         {
             return View();
         }
+
     }
 }
