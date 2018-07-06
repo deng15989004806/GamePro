@@ -15,17 +15,23 @@ namespace GamePro.Controllers
         //擂台
         public ActionResult Room()
         {
-            if (string.IsNullOrEmpty(Convert.ToString(Session["OpenID"])) || string.IsNullOrEmpty(Convert.ToString(Session["ID"])))
-                weixinService.AutoLogin(Convert.ToString(Session["OpenID"]), Convert.ToInt32(Session["ID"]));
-            return View();
+            try
+            {
+                if (string.IsNullOrEmpty(Convert.ToString(Session["OpenID"])) || string.IsNullOrEmpty(Convert.ToString(Session["ID"])))
+                    weixinService.AutoLogin(Convert.ToString(Session["OpenID"]), Convert.ToInt32(Session["ID"]));
+                ViewBag.RingID = (from a in db.Ring.Select(x => x.RingID) select a).Max();  //擂台最大房间号
+                return View();
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message);
+            }
         }
         //摆擂
         public ActionResult Add()
         {
             try
-            {
-                Session["OpenID"] = "opc-H017tPwpaC4g33T-ErmzzGgs";
-                
+            { 
                 if (string.IsNullOrEmpty(Convert.ToString(Session["OpenID"])) || string.IsNullOrEmpty(Convert.ToString(Session["ID"])))
                     weixinService.AutoLogin(Convert.ToString(Session["OpenID"]), Convert.ToInt32(Session["ID"]));
                 string OpenID = Session["OpenID"].ToString();
