@@ -5,7 +5,7 @@
     {"type":"view","name":"参赛报名","url":"http://www.7893927.cn/Home/regist"},
     {"name":"关于平台","sub_button":
                                   [
-                                     {"type":"view","name":"规则介绍","url":"http://www.7893927.cn/Test"},
+                                     {"type":"view","name":"规则介绍","url":"http://www.7893927.cn/Home/GameShow"},
                                      {"type":"view","name":"平台充值","url":"http://www.7893927.cn/home/addmoney"}
                                   ]
      }
