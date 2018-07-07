@@ -158,12 +158,12 @@ namespace GamePro.Controllers
         }
         public ActionResult CreateMenu()
         {
-            // Response.Write(wxMenuService.Create(Server.MapPath("~/menu.txt")));
-            string url = string.Format("http://file.api.weixin.qq.com/cgi-bin/media/upload?access_token={0}&type={1}", weixinService.Access_token, "image");
-            string json = wxMediaService.HttpUploadFile(url, @"C:\Users\Administrator\source\repos\GamePro\GamePro\Img\ewmabc.png");
+            Response.Write(wxMenuService.Create(Server.MapPath("~/menu.txt")));
+            //string url = string.Format("http://file.api.weixin.qq.com/cgi-bin/media/upload?access_token={0}&type={1}", weixinService.Access_token, "image");
+            //string json = wxMediaService.HttpUploadFile(url, @"C:\Users\Administrator\source\repos\GamePro\GamePro\Img\ewmabc.png");
 
-            UploadMediaResult um = JSONHelper.JSONToObject<UploadMediaResult>(json);
-            Response.Write("上传成功。媒体id:" + um.media_id + "");
+            //UploadMediaResult um = JSONHelper.JSONToObject<UploadMediaResult>(json);
+            //Response.Write("上传成功。媒体id:" + um.media_id + "");
 
             return View();
         }
@@ -434,7 +434,7 @@ namespace GamePro.Controllers
                 db.SaveChanges();
 
                 User u = db.User.FirstOrDefault(m=>m.ID==userID);
-                if (total_fee == "88")
+                if (total_fee == "0.1")
                 {
                     u.NumberOfDiamonds += 880;
                 }
