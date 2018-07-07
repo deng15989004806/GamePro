@@ -20,9 +20,8 @@ using wxBase.Model.Media;
 
 namespace GamePro.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
-        static string  OpenID="";
         private string PostInput()
         {
             try
@@ -50,89 +49,107 @@ namespace GamePro.Controllers
 
         public ActionResult Index()
         {
-            //string echostring = Request.QueryString["echoStr"];
-            //string signature = Request.QueryString["signature"];
-            //string timestamp = Request.QueryString["timestamp"];
-            //string nonce = Request.QueryString["nonce"];
-            //string tmpsignature = Ycbase.makesignature(Ycbase.token, timestamp, nonce);
-            //if (tmpsignature == signature && !string.IsNullOrEmpty(echostring))
-            //{
-            //    Response.Write(echostring);
-            //    Response.End();
-            //}
-            //else
-            //{
-            //    Response.Write("Invalid request");
-            //    Response.End();
-            //}
-            if (Request.RequestType.ToUpper() == "POST")
+            try
             {
-            
-                string message = PostInput();
-                wxModelMessage mm = new wxModelMessage();
-                mm.ParseXML(message);
-                LogService.Write("发送方：" + mm.FromUserName);
-                LogService.Write("接收方：" + mm.ToUserName);
-                LogService.Write("事件值：" + mm.Event);
-                if (mm.Event == "subscribe")
+                //string echostring = Request.QueryString["echoStr"];
+                //string signature = Request.QueryString["signature"];
+                //string timestamp = Request.QueryString["timestamp"];
+                //string nonce = Request.QueryString["nonce"];
+                //string tmpsignature = Ycbase.makesignature(Ycbase.token, timestamp, nonce);
+                //if (tmpsignature == signature && !string.IsNullOrEmpty(echostring))
+                //{
+                //    Response.Write(echostring);
+                //    Response.End();
+                //}
+                //else
+                //{
+                //    Response.Write("Invalid request");
+                //    Response.End();
+                //}
+                if (Request.RequestType.ToUpper() == "POST")
                 {
-                    LogService.Write("关注ID" + mm.FromUserName);
-                    wxModelMessage.sendMessage(mm.FromUserName, "因公众号功能还在完善中。。。。需要咨询礼包和各类游戏活动的朋友请加微信号：He0705h  回复消息有惊喜");
 
-                }
-                if (mm.MsgType == "text")
-                {
-                    LogService.Write("收到消息" + mm.Content);
-                    //wxModelMessage.sendMessage(mm.FromUserName, "收到"+mm.Content);
-                    wxModelMessage.sendImageMessage(mm.FromUserName, "pt3-_5yeWi40YpNGW3eLJTo6WH8ecxJPGHhsIVF_pQv4gEJD7K1XJPocdSkmBFuw");
-                    LogService.Write("发送二维码成功");
-                }
-
-
-            }
-            if (Request["code"] == null || Request["code"] == "")
-            {
-                string url = weixinService.OAuth2("http://www.7893927.cn/Home/Index", 0);
-
-                System.Web.HttpContext.Current.Response.Redirect(url);
-                return View();
-            }
-            var result = weixinService.get_accesstoken_bycode(Request["code"]);
-            if (result != null)
-            {
-                HttpContext.Session["OpenID"] = result.openid;
-            }
-            //HttpContext.Session.Add("OpenID", result.openid);   //获取openid
-            else
-            {
-                Response.Write("登录失败,请重新登录。");
-                return View();
-            }
-            if ((HttpContext.Session["ID"] == null || string.IsNullOrEmpty(HttpContext.Session["ID"].ToString())) || string.IsNullOrEmpty(result.openid))
-            {
-                if (HttpContext.Session["OpenID"] != null)
-                {
-                    var user = db.User.FirstOrDefault(x => x.OpenID == HttpContext.Session["OpenID"].ToString());
-                    if (user != null)
+                    string message = PostInput();
+                    wxModelMessage mm = new wxModelMessage();
+                    mm.ParseXML(message);
+                    LogService.Write("发送方：" + mm.FromUserName);
+                    LogService.Write("接收方：" + mm.ToUserName);
+                    LogService.Write("事件值：" + mm.Event);
+                    if (mm.Event == "subscribe")
                     {
-                        HttpContext.Session["ID"] = user.ID;
-                        HttpContext.Session["NickName"] = user.nickname;
+                        LogService.Write("关注ID" + mm.FromUserName);
+                        wxModelMessage.sendMessage(mm.FromUserName, "因公众号功能还在完善中。。。。需要咨询礼包和各类游戏活动的朋友请加微信号：He0705h  回复消息有惊喜");
 
+                    }
+                    if (mm.MsgType == "text")
+                    {
+                        LogService.Write("收到消息" + mm.Content);
+                        //wxModelMessage.sendMessage(mm.FromUserName, "收到"+mm.Content);
+                        wxModelMessage.sendImageMessage(mm.FromUserName, "pt3-_5yeWi40YpNGW3eLJTo6WH8ecxJPGHhsIVF_pQv4gEJD7K1XJPocdSkmBFuw");
+                        LogService.Write("发送二维码成功");
+                    }
+
+
+                }
+                //if (Request["code"] == null || Request["code"] == "")
+                //{
+                //    string url = weixinService.OAuth2("http://www.7893927.cn/Home/Index", 0);
+
+                //    System.Web.HttpContext.Current.Response.Redirect(url);
+                //    return View();
+                //}
+                //var result = weixinService.get_accesstoken_bycode(Request["code"]);
+                //if (result != null)
+                //{
+                //    HttpContext.Session["OpenID"] = result.openid;
+                //}
+                //HttpContext.Session.Add("OpenID", result.openid);   //获取openid
+                //else
+                //{
+                //    Response.Write("登录失败,请重新登录。");
+                //    return View();
+                //}
+
+                if ((Session["ID"]==null|| Session["ID"].ToString()=="") || string.IsNullOrEmpty(Session["OpenID"].ToString()))
+                {
+                    if (Session["OpenID"] != null)
+                    {
+                        
+                        //var user = db.User.FirstOrDefault(x => x.OpenID == OpenID);
+                        string q = Session["OpenID"].ToString();
+                        Response.Write("222");
+                        var user = (from x in db.User where x.OpenID == q select x).FirstOrDefault();
+                        if (user != null)
+                        {
+                            Session["ID"] = user.ID.ToString();
+                            ////ID = user.ID.ToString();
+                            Session["NickName"] = user.nickname;
+
+                        }
+                        else
+                        {
+                            return RedirectToAction("Login", "Home");
+                        }
                     }
                     else
                         return RedirectToAction("Login", "Home");
                 }
-                else
-                    return RedirectToAction("Login", "Home");
-            }
-            //else
-            weixinService.AutoLogin(result.openid, Convert.ToInt32(Session["ID"])); //当openid或用户ID有一个不为空时自动登录
 
-            //return Content("用户" + Session["NickName"] + "登陆成功" + Session["OpenID"]);
-            //wxModelMessage.sendMessage("", weixinService.Access_token + ","+ result.openid);
-            //return Content(weixinService.Access_token + "," + result.openid);
-            ViewBag.OpenID= result.openid;
-            return View();
+                //else
+                Response.Write(Session["ID"]);
+                //weixinService.AutoLogin(OpenID, Convert.ToInt32(Session["ID"])); //当openid或用户ID有一个不为空时自动登录
+                //weixinService.AutoLogin(OpenID);
+                //return Content("用户" + Session["NickName"] + "登陆成功" + Session["OpenID"]);
+                //wxModelMessage.sendMessage("", weixinService.Access_token + ","+ result.openid);
+                //return Content(weixinService.Access_token + "," + result.openid);
+                //ViewBag.OpenID = OpenID;
+                return View();
+            }
+            catch(Exception ex)
+            {
+                Response.Write(ex.Message);
+                return View();
+            }
         }
         public ActionResult getaccesstoken()
         {

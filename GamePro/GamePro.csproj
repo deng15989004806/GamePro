@@ -211,6 +211,7 @@
     <Compile Include="BaseFunction\LogService.cs" />
     <Compile Include="BaseFunction\weixinService.cs" />
     <Compile Include="BaseFunction\wxUsersService.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RoomController.cs" />
     <Compile Include="Global.asax.cs">
@@ -376,7 +377,9 @@
     <Content Include="Views\Home\pageindex.cshtml" />
     <Content Include="Views\Home\regist.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\Base\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>

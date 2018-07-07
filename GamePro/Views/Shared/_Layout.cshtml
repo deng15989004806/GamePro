@@ -1,25 +1,26 @@
 ﻿<!DOCTYPE html>
 
 <html>
+
+
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
-    <link href="~/Content/amazeui.min.css" rel="stylesheet" />
-    <link href="~/Content/app.css" rel="stylesheet" />
-    <link href="~/Content/layer.css" rel="stylesheet" />
-    <link href="~/Content/liMarquee.css" rel="stylesheet" />
-    <link href="~/Content/select_city.css" rel="stylesheet" />
-    <link href="~/Content/style.css" rel="stylesheet" />
-    <script src="~/Content/jquery.min.js"></script>
-    <script src="~/Scripts/jquery.liMarquee.js"></script>
-    <script src="~/Scripts/jquery_002.js"></script>
-    <script src="~/Content/angular.min.js"></script>
-    <script src="~/Content/amazeui.min.js"></script>
-
-
-    <script src="~/Content/layer.js"></script>
-    <script src="~/Content/select_city.js"></script>
-</head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @*<script src="@Url.Content("~/Scripts/jquery.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.liMarquee.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery_002.js")"></script>
+    <script src="@Url.Content("~/Scripts/angular.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/amazeui.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/layer.js")"></script>
+    <script src="@Url.Content("~/Scripts/select_city.js")"></script>*@
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @{
+        var code = HttpContext.Current.Request["code"];
+        //Log.logmsg(code);
+        string urlpath = HttpContext.Current.Request.Url.AbsoluteUri.ToString();
+        ViewBag.at = GamePro.BaseFunction.weixinService.GetOpenID(urlpath, code);
+    }
+</head> 
 <body>
     <div>
         @RenderBody()

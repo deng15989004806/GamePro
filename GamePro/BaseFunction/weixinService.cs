@@ -110,6 +110,23 @@ namespace GamePro.BaseFunction
         #endregion
 
 
+        public static string GetOpenID(string redirect_url, string code)
+        {
+            string result = "";
+            if (string.IsNullOrEmpty(code))
+            {
+                string url = weixinService.OAuth2(redirect_url, 0);
+
+                HttpContext.Current.Response.Redirect(url);
+            }
+            else
+            {
+                result = get_accesstoken_bycode(code).openid;
+                HttpContext.Current.Session["OpenID"] = result;
+            }
+            return result;
+        }
+
         /// <summary>
         ///消息加解密密钥
         /// </summary>
@@ -212,6 +229,7 @@ namespace GamePro.BaseFunction
                     ).FirstOrDefault();
                 if (user != null)
                 {
+                    HttpContext.Current.Response.Write("666");
                     HttpContext.Current.Session["ID"] = user.ID;
                     HttpContext.Current.Session["NickName"] = user.nickname;
                     HttpContext.Current.Session["OpenID"] = user.OpenID;
@@ -233,6 +251,19 @@ namespace GamePro.BaseFunction
                     HttpContext.Current.Session["NickName"] = user.nickname;
                     HttpContext.Current.Session["OpenID"] = user.OpenID;
                 }
+            }
+        }
+        public static void AutoLogin(string OpenID)
+        {
+            GameWZEntities db = new GameWZEntities();
+            var user = (
+                                  from a in db.User.Where(x => x.OpenID == OpenID) select a
+                                  ).FirstOrDefault();
+            if (user != null)
+            {
+                HttpContext.Current.Session["ID"] = user.ID;
+                HttpContext.Current.Session["NickName"] = user.nickname;
+                HttpContext.Current.Session["OpenID"] = user.OpenID;
             }
         }
     }

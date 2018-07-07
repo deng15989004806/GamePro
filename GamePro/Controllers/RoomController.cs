@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace GamePro.Controllers
 {
-    public class RoomController : Controller
+    public class RoomController : BaseController
     {
         GameWZEntities db = new GameWZEntities();
         // GET: Room
@@ -18,8 +18,8 @@ namespace GamePro.Controllers
         {
             try
             {
-                if (string.IsNullOrEmpty(Convert.ToString(Session["OpenID"])) || string.IsNullOrEmpty(Convert.ToString(Session["ID"])))
-                    weixinService.AutoLogin(Convert.ToString(Session["OpenID"]), Convert.ToInt32(Session["ID"]));
+                //if (string.IsNullOrEmpty(Convert.ToString(Session["OpenID"])) || string.IsNullOrEmpty(Convert.ToString(Session["ID"])))
+                //    weixinService.AutoLogin(Convert.ToString(Session["OpenID"]), Convert.ToInt32(Session["ID"]));
                 ViewBag.RingID = (from a in db.Ring.Select(x => x.RingID) select a).Max();  //擂台最大房间号
                 return View();
             }
@@ -33,8 +33,8 @@ namespace GamePro.Controllers
         {
             try
             {
-                if (string.IsNullOrEmpty(Convert.ToString(HttpContext.Session["OpenID"])) || string.IsNullOrEmpty(Convert.ToString(HttpContext.Session["ID"])))
-                    weixinService.AutoLogin(Convert.ToString(HttpContext.Session["OpenID"]), Convert.ToInt32(HttpContext.Session["ID"]));
+                //if (string.IsNullOrEmpty(Convert.ToString(HttpContext.Session["OpenID"])) || string.IsNullOrEmpty(Convert.ToString(HttpContext.Session["ID"])))
+                //    weixinService.AutoLogin(Convert.ToString(HttpContext.Session["OpenID"]), Convert.ToInt32(HttpContext.Session["ID"]));
                 string OpenID = HttpContext.Session["OpenID"].ToString();
                 var user = (
                     from a in db.User.Where(x => x.OpenID == OpenID) select a
