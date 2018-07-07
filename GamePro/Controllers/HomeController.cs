@@ -109,7 +109,7 @@ namespace GamePro.Controllers
                 //    Response.Write("登录失败,请重新登录。");
                 //    return View();
                 //}
-
+                var OpenId = OpenID;
                 if ((Session["ID"]==null|| Session["ID"].ToString()=="") || string.IsNullOrEmpty(Session["OpenID"].ToString()))
                 {
                     if (Session["OpenID"] != null)
@@ -117,7 +117,6 @@ namespace GamePro.Controllers
                         
                         //var user = db.User.FirstOrDefault(x => x.OpenID == OpenID);
                         string q = Session["OpenID"].ToString();
-                        Response.Write("222");
                         var user = (from x in db.User where x.OpenID == q select x).FirstOrDefault();
                         if (user != null)
                         {
@@ -136,7 +135,6 @@ namespace GamePro.Controllers
                 }
 
                 //else
-                Response.Write(Session["ID"]);
                 //weixinService.AutoLogin(OpenID, Convert.ToInt32(Session["ID"])); //当openid或用户ID有一个不为空时自动登录
                 //weixinService.AutoLogin(OpenID);
                 //return Content("用户" + Session["NickName"] + "登陆成功" + Session["OpenID"]);
