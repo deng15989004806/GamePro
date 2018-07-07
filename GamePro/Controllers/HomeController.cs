@@ -67,6 +67,7 @@ namespace GamePro.Controllers
             //}
             if (Request.RequestType.ToUpper() == "POST")
             {
+            
                 string message = PostInput();
                 wxModelMessage mm = new wxModelMessage();
                 mm.ParseXML(message);
@@ -83,7 +84,7 @@ namespace GamePro.Controllers
                 {
                     LogService.Write("收到消息" + mm.Content);
                     //wxModelMessage.sendMessage(mm.FromUserName, "收到"+mm.Content);
-                    wxModelMessage.sendImageMessage(mm.FromUserName, "pt3-_5yeWi40YpNGW3eLJUKk5hcTf2GNHW9CU3TPSVWx6DplgMOki45UtH7xocFQ");
+                    wxModelMessage.sendImageMessage(mm.FromUserName, "pt3-_5yeWi40YpNGW3eLJTo6WH8ecxJPGHhsIVF_pQv4gEJD7K1XJPocdSkmBFuw");
                     LogService.Write("发送二维码成功");
                 }
 
@@ -141,12 +142,12 @@ namespace GamePro.Controllers
         public ActionResult CreateMenu()
         {
             // Response.Write(wxMenuService.Create(Server.MapPath("~/menu.txt")));
-            //string url = string.Format("http://file.api.weixin.qq.com/cgi-bin/media/upload?access_token={0}&type={1}", weixinService.Access_token, "image");
-            //string json = wxMediaService.HttpUploadFile(url, @"C:\Users\Administrator\source\repos\GamePro\GamePro\Img\ewm.png");
+            string url = string.Format("http://file.api.weixin.qq.com/cgi-bin/media/upload?access_token={0}&type={1}", weixinService.Access_token, "image");
+            string json = wxMediaService.HttpUploadFile(url, @"C:\Users\Administrator\source\repos\GamePro\GamePro\Img\ewmabc.png");
 
-            //UploadMediaResult um = JSONHelper.JSONToObject<UploadMediaResult>(json);
-            //Response.Write("上传成功。媒体id:" + um.media_id + "");
-           
+            UploadMediaResult um = JSONHelper.JSONToObject<UploadMediaResult>(json);
+            Response.Write("上传成功。媒体id:" + um.media_id + "");
+
             return View();
         }
         public ActionResult JSPay(decimal money)
