@@ -14,7 +14,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>pageindex</title>
+    <title>微来时空支付</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
     <link href="~/Content/style.css" rel="stylesheet" />
@@ -38,7 +38,8 @@
                 }, function (res) {
                         //alert(res.err_msg);
                         if (res.err_msg == "get_brand_wcpay_request:ok") {
-                            //window.location.href="/wx/StoreManage/WX_HB/WXSuccess.aspx?bill="+$("#body_hidBill").val();
+                            // window.location.href="/wx/StoreManage/WX_HB/WXSuccess.aspx?bill="+$("#body_hidBill").val();
+                            window.location.href = "http://www.7893927.cn/home/RechargeSuccess";
                         }
                     });
         });
@@ -48,9 +49,11 @@
 </head>
 <body>
     <br /><br />
+    <div style="align-content:center">
     <h2 style="text-align:center">微来时空支付</h2>
-
+        </div>
     <button class="btn btn_primary" id="btn_JsApiPay" style="margin-top:50%;margin-bottom:50%;">确认值 @ViewBag.money 元</button>
 
+    <div style="align-content:center;color:red">注：充值请先注册</div>
 </body>
 </html>

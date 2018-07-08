@@ -401,11 +401,12 @@
     <Content Include="Views\Home\test1.cshtml" />
     <Content Include="Views\Room\Add.cshtml" />
     <Content Include="Views\Room\Room.cshtml" />
-    <Content Include="Views\Home\Notify.cshtml" />
+    <Content Include="Views\Home\RechargeSuccess.cshtml" />
     <None Include="Properties\PublishProfiles\local.pubxml" />
     <Content Include="Views\Home\Addmoney.cshtml" />
     <Content Include="Views\Home\GameShow.cshtml" />
     <Content Include="Views\Room\Rank.cshtml" />
+    <Content Include="Views\Home\ShowQRCode.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

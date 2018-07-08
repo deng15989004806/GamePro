@@ -168,8 +168,23 @@ namespace GamePro.Controllers
         }
         public ActionResult JSPay(decimal money)
         {
+            if (Session["OpenID"] != null)
+            {
+                string q = Session["OpenID"].ToString();
+                var user = (from x in db.User where x.OpenID == q select x).FirstOrDefault();
+                if (user != null)
+                {
+                    Session["ID"] = user.ID.ToString();
+                    ////ID = user.ID.ToString();
+                  
 
-            
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Home");
+                }
+            }
+           
             string strBillNo = wxPayService.getTimestamp(); // 订单号
             
             string strWeixin_OpenID = "";  // 当前用户的openid
@@ -202,7 +217,7 @@ namespace GamePro.Controllers
                 }
 
                
-                strWeixin_OpenID = retValue.GetStringValue("Weixin_OpenID");
+                strWeixin_OpenID = retValue.GetStringValue("Weixin_OpenID");              
                 string strWeixin_Token = retValue.GetStringValue("Weixin_Token");
                
                 if (string.IsNullOrEmpty(strWeixin_OpenID))
@@ -230,7 +245,6 @@ namespace GamePro.Controllers
 
         public ActionResult regist()
         {
-            Response.Write(Session["OpenID"]);
             return View();
         }
         [HttpPost]
@@ -405,37 +419,50 @@ namespace GamePro.Controllers
             }
         }
 
-        public ActionResult Notify()
+        public JsonResult Notify()
         {
             string wxNotifyXml = "";
             byte[] bytes = Request.BinaryRead(Request.ContentLength);
             wxNotifyXml = System.Text.Encoding.UTF8.GetString(bytes);
 
+            LogService.Write(wxNotifyXml);
             if (wxNotifyXml.Length == 0)
             {
-                return View();
+                return Json("Failure");
             }
             XmlDocument xmldoc = new XmlDocument();
 
             xmldoc.LoadXml(wxNotifyXml);
             string ResultCode = xmldoc.SelectSingleNode("/xml/result_code").InnerText;
             string ReturnCode = xmldoc.SelectSingleNode("/xml/return_code").InnerText;
+            LogService.Write(ResultCode+"---"+ReturnCode);
             if (ReturnCode == "SUCCESS" && ResultCode == "SUCCESS")
             {
-                string total_fee = xmldoc.SelectSingleNode("/xml/total_fee").InnerText;
-                int? userID = int.Parse(Session["USERID"].ToString());
-                string OpenID = Session["OpenID"].ToString();
-
+                LogService.Write("successture");
                 Recharge re = new Recharge();
-                re.IDOfUSER = userID;
-                re.OPenID = OpenID;
-                re.Inmoney = decimal.Parse(total_fee);
+                string total_fee = xmldoc.SelectSingleNode("/xml/total_fee").InnerText;
+                string OpenID = xmldoc.SelectSingleNode("/xml/openid").InnerText;
 
-                db.Recharge.Add(re);
-                db.SaveChanges();
+                LogService.Write(OpenID);
+                //  int? userID = int.Parse(Session["ID"].ToString());
+                string q = OpenID;
+                var user = (from x in db.User where x.OpenID == q select x).FirstOrDefault();
+                if (user != null)
+                {
+                    re.IDOfUSER = user.ID;
+                    ////ID = user.ID.ToString();
+                    re.OPenID = OpenID;
+                    re.Inmoney = decimal.Parse(total_fee)/10;
 
-                User u = db.User.FirstOrDefault(m=>m.ID==userID);
-                if (total_fee == "0.1")
+                    db.Recharge.Add(re);
+                    db.SaveChanges();
+
+                }
+             
+                         
+                
+                User u = db.User.FirstOrDefault(m=>m.ID==user.ID);
+                if (total_fee == "10")
                 {
                     u.NumberOfDiamonds += 880;
                 }
@@ -457,7 +484,7 @@ namespace GamePro.Controllers
 
             }
            
-            return View();
+            return Json("OK");
         }
 
         public ActionResult Addmoney()
@@ -468,6 +495,16 @@ namespace GamePro.Controllers
         public ActionResult GameShow()
         {
             Response.Write(Session["OpenID"]);
+            return View();
+        }
+        public ActionResult ShowQRCode()
+        {
+            return View();
+        }
+
+        public ActionResult RechargeSuccess()
+
+        {
             return View();
         }
 
