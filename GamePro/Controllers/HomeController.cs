@@ -245,6 +245,8 @@ namespace GamePro.Controllers
 
         public ActionResult regist()
         {
+            ViewBag.Title = "微来时空注册";
+            Response.Write(Session["OpenID"]);
             return View();
         }
         [HttpPost]
