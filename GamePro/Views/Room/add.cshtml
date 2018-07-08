@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="keywords" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>微来时空</title><!-- Set render engine for 360 browser -->
+    <title>微来时空 @ViewBag.RingID</title><!-- Set render engine for 360 browser -->
     <meta name="renderer" content="webkit">
     <!-- No Baidu Siteapp-->
     <meta http-equiv="Cache-Control" content="no-siteapp">
@@ -515,7 +515,10 @@
                     },
                     success: function (data) {
                         layer.msg(data);
-                        window.location.href = "http://www.7893927.cn/Home/Index";
+                        setTimeout(function () {
+                            window.location.href = "http://www.7893927.cn/Home/Index";
+                        }, 1000)
+                        //window.location.href = "http://www.7893927.cn/Home/Index";
                         //console.info(data);
                         //if (data.code != 1)
                         //    layer.msg(data.message);

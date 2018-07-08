@@ -39,11 +39,37 @@ namespace GamePro.Controllers
                 //if (string.IsNullOrEmpty(Convert.ToString(HttpContext.Session["OpenID"])) || string.IsNullOrEmpty(Convert.ToString(HttpContext.Session["ID"])))
                 //    weixinService.AutoLogin(Convert.ToString(HttpContext.Session["OpenID"]), Convert.ToInt32(HttpContext.Session["ID"]));
                 weixinService.AutoLogin(Session["OpenID"].ToString());
+
                 string OpenID = HttpContext.Session["OpenID"].ToString();
+                //if(Session["ID"]!=null)
+                //{
+                //    var ring = (
+                //    from a in db.Ring.Where(x => x.OpenID == OpenID) select a
+                //    ).FirstOrDefault();
+                //}
                 var user = (
-                    from a in db.User.Where(x => x.OpenID == OpenID) select a
-                    ).FirstOrDefault();
+                            from a in db.User.Where(x => x.OpenID == OpenID)
+                            join b in db.Ring.Where(x => string.IsNullOrEmpty(x.WinOrLose)) on a.ID equals b.ID into tmp
+                            from c in tmp.DefaultIfEmpty()
+                            select new UserView
+                            {
+                                ID = a.ID,
+                                UserName = a.nickname,
+                                Gamemode = c.Gamemode,
+                                OpenID = a.OpenID,
+                                NumberOfDiamonds = a.NumberOfDiamonds,
+                            }
+                   ).FirstOrDefault();
+                if (user.RingID != null)
+                {
+                    Response.Write("您当前还有未进行的比赛，请联系客服安排比赛");
+                    return View();
+                }
+                //var user = (
+                //    from a in db.User.Where(x => x.OpenID == OpenID) select a
+                //    ).FirstOrDefault();
                 ViewBag.NumberOfDiamonds = user.NumberOfDiamonds;
+                ViewBag.RingID = user.RingID;
                 return View();
             }
             catch (Exception ex)

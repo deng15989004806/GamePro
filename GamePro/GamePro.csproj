@@ -261,6 +261,7 @@
     <Compile Include="ViewModel\Users\wxUserInfo.cs" />
     <Compile Include="ViewModel\Users\wxUsersSummary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\UserView.cs" />
     <Compile Include="ViewModel\wxaccessToken.cs" />
     <Compile Include="ViewModel\wxModelMessage.cs" />
   </ItemGroup>

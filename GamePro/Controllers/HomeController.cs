@@ -110,7 +110,6 @@ namespace GamePro.Controllers
                 //    return View();
                 //}
                 var OpenId = OpenID;
-                Response.Write(Session["OpenID"]);
                 if ((Session["ID"]==null|| Session["ID"].ToString()=="") || string.IsNullOrEmpty(Session["OpenID"].ToString()))
                 {
                     if (Session["OpenID"] != null)
@@ -163,82 +162,6 @@ namespace GamePro.Controllers
 
             //UploadMediaResult um = JSONHelper.JSONToObject<UploadMediaResult>(json);
             //Response.Write("上传成功。媒体id:" + um.media_id + "");
-
-            return View();
-        }
-        public ActionResult JSPay(decimal money)
-        {
-            if (Session["OpenID"] != null)
-            {
-                string q = Session["OpenID"].ToString();
-                var user = (from x in db.User where x.OpenID == q select x).FirstOrDefault();
-                if (user != null)
-                {
-                    Session["ID"] = user.ID.ToString();
-                    ////ID = user.ID.ToString();
-                  
-
-                }
-                else
-                {
-                    return RedirectToAction("Login", "Home");
-                }
-            }
-           
-            string strBillNo = wxPayService.getTimestamp(); // 订单号
-            
-            string strWeixin_OpenID = "";  // 当前用户的openid
-            string strCode = Request.QueryString["code"] == null ? "" : Request.QueryString["code"]; // 接收微信认证服务器发送来的code
-
-            
-          
-            if (string.IsNullOrEmpty(strCode)) //如果接收到code，则说明是OAuth2服务器回调
-            {
-                //进行OAuth2认证，获取code
-                string _OAuth_Url = wxPayService.OAuth2_GetUrl_Pay(Request.Url.ToString());
-
-             
-               Response.Redirect(_OAuth_Url);
-              
-                return Content("");
-            }
-            else
-            {
-               
-                
-                //根据返回的code，获得
-                wxPayReturnValue retValue = wxPayService.OAuth2_Access_Token(strCode);
-             
-
-                if (retValue.HasError)
-                {
-                    Response.Write("获取code失败：" + retValue.Message);
-                    return Content("");
-                }
-
-               
-                strWeixin_OpenID = retValue.GetStringValue("Weixin_OpenID");              
-                string strWeixin_Token = retValue.GetStringValue("Weixin_Token");
-               
-                if (string.IsNullOrEmpty(strWeixin_OpenID))
-                {
-                    Response.Write("openid出错");
-                    return Content("");
-                }
-            }
-            if (string.IsNullOrEmpty(strWeixin_OpenID))
-                return Content("");
-
-            wxpayPackage pp = wxPayService.MakePayPackage(strWeixin_OpenID, strBillNo, money, "微来时空");
-            //  LogService.Write("_Pay_json1:" + _Pay_json);
-            ViewBag.appid = pp.appId;
-            ViewBag.nonceStr = pp.nonceStr;
-            ViewBag.package = pp.package;
-            ViewBag.paySign = pp.paySign;
-            ViewBag.signType = pp.signType;
-            ViewBag.timeStamp = pp.timeStamp;
-            ViewBag.money = money;
-
 
             return View();
         }
@@ -421,6 +344,12 @@ namespace GamePro.Controllers
             }
         }
 
+        public ActionResult GameShow()
+        {
+            Response.Write(Session["OpenID"]);
+            return View();
+        }
+
         public JsonResult Notify()
         {
             string wxNotifyXml = "";
@@ -457,7 +386,7 @@ namespace GamePro.Controllers
                     re.Inmoney = decimal.Parse(total_fee)/10;
 
                     db.Recharge.Add(re);
-                    db.SaveChanges();
+                    //db.SaveChanges();
 
                 }
              
@@ -483,22 +412,107 @@ namespace GamePro.Controllers
 
                 db.Entry<User>(u).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
-
+                //Response.Write("success");
+                //HttpContext.Response.Write("success");
+                HttpContext context = System.Web.HttpContext.Current;
+                context.Response.ContentType = "text/xml";
+                string result = "<xml><return_code>SUCCESS</return_code><return_msg>OK</return_msg></xml>";
+                //Response.Write(result);
+                //HttpContext.Response.Write(result);
+                //HttpContext.Response.End();
+                //System.Web.HttpContext.Current.Response.Write("success");
+                //System.Web.HttpContext.Current.Response.End();
+                context.Response.Write(result);
+                //Response.End();
             }
            
             return Json("OK");
         }
 
-        public ActionResult Addmoney()
+        public ActionResult JSPay(decimal money)
         {
+            if (Session["OpenID"] != null)
+            {
+                string q = Session["OpenID"].ToString();
+                var user = (from x in db.User where x.OpenID == q select x).FirstOrDefault();
+                if (user != null)
+                {
+                    Session["ID"] = user.ID.ToString();
+                    ////ID = user.ID.ToString();
+
+
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Home");
+                }
+            }
+
+            string strBillNo = wxPayService.getTimestamp(); // 订单号
+
+            string strWeixin_OpenID = "";  // 当前用户的openid
+            string strCode = Request.QueryString["code"] == null ? "" : Request.QueryString["code"]; // 接收微信认证服务器发送来的code
+
+
+
+            if (string.IsNullOrEmpty(strCode)) //如果接收到code，则说明是OAuth2服务器回调
+            {
+                //进行OAuth2认证，获取code
+                string _OAuth_Url = wxPayService.OAuth2_GetUrl_Pay(Request.Url.ToString());
+
+
+                Response.Redirect(_OAuth_Url);
+
+                return Content("");
+            }
+            else
+            {
+
+
+                //根据返回的code，获得
+                wxPayReturnValue retValue = wxPayService.OAuth2_Access_Token(strCode);
+
+
+                if (retValue.HasError)
+                {
+                    Response.Write("获取code失败：" + retValue.Message);
+                    return Content("");
+                }
+
+
+                strWeixin_OpenID = retValue.GetStringValue("Weixin_OpenID");
+                string strWeixin_Token = retValue.GetStringValue("Weixin_Token");
+
+                if (string.IsNullOrEmpty(strWeixin_OpenID))
+                {
+                    Response.Write("openid出错");
+                    return Content("");
+                }
+            }
+            if (string.IsNullOrEmpty(strWeixin_OpenID))
+                return Content("");
+
+            wxpayPackage pp = wxPayService.MakePayPackage(strWeixin_OpenID, strBillNo, money, "微来时空");
+            //  LogService.Write("_Pay_json1:" + _Pay_json);
+            ViewBag.appid = pp.appId;
+            ViewBag.nonceStr = pp.nonceStr;
+            ViewBag.package = pp.package;
+            ViewBag.paySign = pp.paySign;
+            ViewBag.signType = pp.signType;
+            ViewBag.timeStamp = pp.timeStamp;
+            ViewBag.money = money;
+
+
             return View();
         }
 
-        public ActionResult GameShow()
+        public ActionResult Addmoney()
         {
-            Response.Write(Session["OpenID"]);
+            Session["OpenID"] = "opc-H017tPwpaC4g33T-ErmzzGgs";
             return View();
         }
+
+
         public ActionResult ShowQRCode()
         {
             return View();
