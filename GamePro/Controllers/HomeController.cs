@@ -384,7 +384,7 @@ namespace GamePro.Controllers
                     ////ID = user.ID.ToString();
                     re.OPenID = OpenID;
                     re.Inmoney = decimal.Parse(total_fee)/10;
-
+                    LogService.Write(total_fee.ToString());
                     db.Recharge.Add(re);
                     //db.SaveChanges();
 
@@ -416,13 +416,16 @@ namespace GamePro.Controllers
                 //HttpContext.Response.Write("success");
                 HttpContext context = System.Web.HttpContext.Current;
                 context.Response.ContentType = "text/xml";
-                string result = "<xml><return_code>SUCCESS</return_code><return_msg>OK</return_msg></xml>";
+               // string result = "<xml><return_code>SUCCESS</return_code><return_msg>OK</return_msg></xml>";
+
+                string xmlresult = "<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>";
+
                 //Response.Write(result);
                 //HttpContext.Response.Write(result);
                 //HttpContext.Response.End();
                 //System.Web.HttpContext.Current.Response.Write("success");
                 //System.Web.HttpContext.Current.Response.End();
-                context.Response.Write(result);
+                context.Response.Write(xmlresult);
                 //Response.End();
             }
            
