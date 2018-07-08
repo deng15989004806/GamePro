@@ -18,6 +18,8 @@ namespace GamePro.Controllers
         {
             try
             {
+                Response.Write(Session["OpenID"]);
+                //weixinService.AutoLogin(OpenID);
                 //if (string.IsNullOrEmpty(Convert.ToString(Session["OpenID"])) || string.IsNullOrEmpty(Convert.ToString(Session["ID"])))
                 //    weixinService.AutoLogin(Convert.ToString(Session["OpenID"]), Convert.ToInt32(Session["ID"]));
                 ViewBag.RingID = (from a in db.Ring.Select(x => x.RingID) select a).Max();  //擂台最大房间号
@@ -33,8 +35,10 @@ namespace GamePro.Controllers
         {
             try
             {
+                Response.Write(Session["OpenID"]);
                 //if (string.IsNullOrEmpty(Convert.ToString(HttpContext.Session["OpenID"])) || string.IsNullOrEmpty(Convert.ToString(HttpContext.Session["ID"])))
                 //    weixinService.AutoLogin(Convert.ToString(HttpContext.Session["OpenID"]), Convert.ToInt32(HttpContext.Session["ID"]));
+                weixinService.AutoLogin(Session["OpenID"].ToString());
                 string OpenID = HttpContext.Session["OpenID"].ToString();
                 var user = (
                     from a in db.User.Where(x => x.OpenID == OpenID) select a
@@ -82,7 +86,10 @@ namespace GamePro.Controllers
         public ActionResult Rank()
         {
             try
-            {   //钻石排行
+            {
+                Response.Write(Session["OpenID"]);
+                weixinService.AutoLogin(OpenID);
+                //钻石排行
                 var rank = (
                     from a in
                         (

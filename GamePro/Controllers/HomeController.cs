@@ -110,6 +110,7 @@ namespace GamePro.Controllers
                 //    return View();
                 //}
                 var OpenId = OpenID;
+                Response.Write(Session["OpenID"]);
                 if ((Session["ID"]==null|| Session["ID"].ToString()=="") || string.IsNullOrEmpty(Session["OpenID"].ToString()))
                 {
                     if (Session["OpenID"] != null)
@@ -136,7 +137,7 @@ namespace GamePro.Controllers
 
                 //else
                 //weixinService.AutoLogin(OpenID, Convert.ToInt32(Session["ID"])); //当openid或用户ID有一个不为空时自动登录
-                //weixinService.AutoLogin(OpenID);
+                weixinService.AutoLogin(OpenID);
                 //return Content("用户" + Session["NickName"] + "登陆成功" + Session["OpenID"]);
                 //wxModelMessage.sendMessage("", weixinService.Access_token + ","+ result.openid);
                 //return Content(weixinService.Access_token + "," + result.openid);
@@ -229,6 +230,7 @@ namespace GamePro.Controllers
 
         public ActionResult regist()
         {
+            Response.Write(Session["OpenID"]);
             return View();
         }
         [HttpPost]
@@ -355,6 +357,7 @@ namespace GamePro.Controllers
 
         public ActionResult Login()
         {
+            Response.Write(Session["OpenID"]);
             return View();
         }
 
@@ -464,6 +467,7 @@ namespace GamePro.Controllers
 
         public ActionResult GameShow()
         {
+            Response.Write(Session["OpenID"]);
             return View();
         }
 

@@ -255,6 +255,8 @@ namespace GamePro.BaseFunction
         }
         public static void AutoLogin(string OpenID)
         {
+            if (HttpContext.Current.Session["ID"] != null)
+                return;
             GameWZEntities db = new GameWZEntities();
             var user = (
                                   from a in db.User.Where(x => x.OpenID == OpenID) select a

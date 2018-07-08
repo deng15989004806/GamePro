@@ -13,10 +13,12 @@ namespace GamePro.Controllers
         {
             get
             {
-                string code = System.Web.HttpContext.Current.Request["code"];
-                //Log.logmsg(code);
-                string urlpath = System.Web.HttpContext.Current.Request.Url.AbsoluteUri.ToString();
-                weixinService.GetOpenID(urlpath, code);
+                if (Session["OpenID"] == null)
+                {
+                    string code = System.Web.HttpContext.Current.Request["code"];
+                    string urlpath = System.Web.HttpContext.Current.Request.Url.AbsoluteUri.ToString();
+                    weixinService.GetOpenID(urlpath, code);
+                }
                 return Session["OpenID"].ToString();
             }
             set
