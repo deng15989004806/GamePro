@@ -18,7 +18,7 @@ namespace GamePro.Controllers
         {
             try
             {
-                Response.Write(Session["OpenID"]);
+               
                 //weixinService.AutoLogin(OpenID);
                 //if (string.IsNullOrEmpty(Convert.ToString(Session["OpenID"])) || string.IsNullOrEmpty(Convert.ToString(Session["ID"])))
                 //    weixinService.AutoLogin(Convert.ToString(Session["OpenID"]), Convert.ToInt32(Session["ID"]));
@@ -35,7 +35,7 @@ namespace GamePro.Controllers
         {
             try
             {
-                Response.Write(Session["OpenID"]);
+               
                 //if (string.IsNullOrEmpty(Convert.ToString(HttpContext.Session["OpenID"])) || string.IsNullOrEmpty(Convert.ToString(HttpContext.Session["ID"])))
                 //    weixinService.AutoLogin(Convert.ToString(HttpContext.Session["OpenID"]), Convert.ToInt32(HttpContext.Session["ID"]));
                 weixinService.AutoLogin(Session["OpenID"].ToString());
@@ -113,7 +113,7 @@ namespace GamePro.Controllers
         {
             try
             {
-                Response.Write(Session["OpenID"]);
+                
                 weixinService.AutoLogin(OpenID);
                 //钻石排行
                 var rank = (

@@ -169,7 +169,7 @@ namespace GamePro.Controllers
         public ActionResult regist()
         {
             ViewBag.Title = "微来时空注册";
-            Response.Write(Session["OpenID"]);
+          
             return View();
         }
         [HttpPost]
@@ -296,7 +296,7 @@ namespace GamePro.Controllers
 
         public ActionResult Login()
         {
-            Response.Write(Session["OpenID"]);
+           
             return View();
         }
 
@@ -346,7 +346,7 @@ namespace GamePro.Controllers
 
         public ActionResult GameShow()
         {
-            Response.Write(Session["OpenID"]);
+            
             return View();
         }
 
@@ -383,7 +383,7 @@ namespace GamePro.Controllers
                     re.IDOfUSER = user.ID;
                     ////ID = user.ID.ToString();
                     re.OPenID = OpenID;
-                    re.Inmoney = decimal.Parse(total_fee)/10;
+                    re.Inmoney = decimal.Parse(total_fee)/(decimal)100.00;
                     LogService.Write(total_fee.ToString());
                     db.Recharge.Add(re);
                     //db.SaveChanges();
@@ -511,7 +511,7 @@ namespace GamePro.Controllers
 
         public ActionResult Addmoney()
         {
-            Session["OpenID"] = "opc-H017tPwpaC4g33T-ErmzzGgs";
+           
             return View();
         }
 
